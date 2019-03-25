@@ -1,0 +1,5 @@
+config BR2_PACKAGE_COOLVAL
+	bool "coolval"
+	depends on BR2_USE_MMU
+	help
+		Coolidge Linux port validation tool
