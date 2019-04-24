@@ -1,0 +1,3 @@
+local.mk export-ignore
+.arcconfig export-ignore
+.gitattributes export-ignore
