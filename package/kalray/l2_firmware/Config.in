@@ -1,5 +1,0 @@
-config BR2_PACKAGE_L2_FIRMWARE
-	bool "l2_firmware"
-	depends on BR2_k1
-	help
-		Coolidge L2 firmware

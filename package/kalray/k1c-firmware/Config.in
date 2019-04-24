@@ -1,0 +1,5 @@
+config BR2_PACKAGE_K1C_FIRMWARE
+	bool "k1c_firmware"
+	depends on BR2_k1
+	help
+		Coolidge Linux firmware
