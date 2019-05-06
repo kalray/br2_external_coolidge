@@ -1,10 +1,9 @@
-#! /bin/sh
+#!/bin/sh
 
 case "$1" in
 	start|"")
 		cd /usr/lib/uclibc-ng-test/test
 		sh uclibcng-testrunner.sh
-		halt -f
 		;;
 	stop)
 		echo "nothing to do"
