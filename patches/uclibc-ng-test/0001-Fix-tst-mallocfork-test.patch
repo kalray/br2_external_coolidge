@@ -1,0 +1,93 @@
+From 46cf1ed2356d838fbbe3f7f074281ecf99537532 Mon Sep 17 00:00:00 2001
+From: Yann Sionneau <ysionneau@kalray.eu>
+Date: Fri, 12 Apr 2019 17:06:03 +0200
+Subject: [PATCH] Fix tst-mallocfork test
+To: devel@uclibc-ng.org
+
+This test was changed from using fork to vfork by:
+https://cgit.uclibc-ng.org/cgi/cgit/uclibc-ng.git/commit/?id=822e4896c1072b9f84b17f4f7bcb7c51d1a57723
+
+This change was wrong because man page says the child of vfork() must ONLY do either:
+- a call to one of exec(2)
+- a call to _exit(2)
+- get killed by a signal
+
+BUT the test case does:
+- a call to kill
+- and also a call to exit(3) and not _exit(2)
+
+This test produces a double free() causing assert in free because this is called several times:
+https://elixir.bootlin.com/uclibc-ng/latest/source/libc/stdlib/_atexit.c#L270
+
+So, it seems wrong both in theory (according to man page) and in fact in practice (assert in free).
+
+Here I propose to get back to testing fork(), which is the original test case from:
+https://sourceware.org/bugzilla/show_bug.cgi?id=838
+
+And to just "PASS" on no-mmu systems.
+
+For the record, here is the assert call stack:
+
+FAIL tst-mallocfork got 1 expected 0
+	./tst-mallocfork: libc/stdlib/malloc-standard/malloc.c: 149: __do_check_inuse_chunk: Assertion `((((mchunkptr)(((char*)(p))+((p)->size & ~0x1)))->size) & 0x1)' failed.
+	Didn't expect signal from child: got `Aborted'
+
+0  free (mem=0x3a010) at libc/stdlib/malloc-standard/free.c:285
+1  0x00000000000220c4 in __exit_handler (status=1) at libc/stdlib/_atexit.c:270
+2  0x000000000001afa0 in __GI_exit (rv=1) at libc/stdlib/_atexit.c:301
+3  0x0000000000010dcc in main (argc=1, argv=0x7ffffffd98) at ../test-skeleton.c:405
+4  0x000000000001cba8 in __uClibc_main (main=0x10988 <main>, argc=1, argv=0x7ffffffd98, app_init=0x100e8, app_fini=0x23918 <_fini>, rtld_fini=0x0 <k1c_start>, stack_end=0x7ffffffd90) at libc/misc/internals/__uClibc_main.c:512
+5  0x00000000000eb8b8 in ?? ()
+
+Signed-off-by: Yann Sionneau <ysionneau@kalray.eu>
+---
+ test/malloc/tst-mallocfork.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/test/malloc/tst-mallocfork.c b/test/malloc/tst-mallocfork.c
+index edd9c39..e9e5133 100644
+--- a/test/malloc/tst-mallocfork.c
++++ b/test/malloc/tst-mallocfork.c
+@@ -9,10 +9,12 @@
+ #include <sys/wait.h>
+ #include "../test-skeleton.h"
+ 
++#ifdef __ARCH_USE_MMU__
++
+ static void
+ sig_handler (int signum)
+ {
+-  pid_t child = vfork ();
++  pid_t child = fork ();
+   if (child == 0)
+     exit (0);
+   TEMP_FAILURE_RETRY (waitpid (child, NULL, 0));
+@@ -35,7 +37,7 @@ do_test (void)
+     }
+ 
+   /* Create a child that sends the signal to be caught.  */
+-  pid_t child = vfork ();
++  pid_t child = fork ();
+   if (child == 0)
+     {
+       if (kill (parent, SIGALRM) == -1)
+@@ -48,5 +50,16 @@ do_test (void)
+   return 0;
+ }
+ 
++#else
++
++static int
++do_test (void)
++{
++  printf("Skipping test on non-mmu host!\n");
++  return EXIT_SUCCESS;
++}
++
++#endif
++
+ #define TEST_FUNCTION do_test ()
+ #include "../test-skeleton.c"
+-- 
+1.8.3.1
+
