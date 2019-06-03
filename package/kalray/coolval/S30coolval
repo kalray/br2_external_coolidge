@@ -3,4 +3,12 @@
 # Start the coolidge k1c validation binary
 #
 
+# Before launching coolval we need to enable hugepage. The test will map, write
+# and read 3Mo. So we let's allocate 5 huge pages of 2Mo and we will be fine.
+
+echo 5 > /proc/sys/vm/nr_hugepages
+mkdir -p /mnt/huge
+mount -t hugetlbfs nodev /mnt/huge
+
+# OK we are now ready to launch coolval
 /bin/coolval
