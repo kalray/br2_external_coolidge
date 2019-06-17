@@ -39,5 +39,8 @@ echo 160 > /sys/kernel/mm/hugepages/hugepages-64kB/nr_hugepages
 mkdir -p /mnt/huge_64kb
 mount -t hugetlbfs nodev /mnt/huge_64kb -o pagesize=64K
 
+modprobe k1c_dma_noc_test
+modprobe -r k1c_dma_noc_test
+
 # OK we are now ready to launch coolval
 /bin/coolval
