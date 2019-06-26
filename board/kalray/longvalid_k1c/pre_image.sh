@@ -9,7 +9,8 @@ else
 	COUNT=1
 fi
 
-input_file=${BUILD_DIR}/uclibc-ng-test-*/test/uclibcng-testrunner.in
+script_path=${BR2_EXTERNAL_K1C_PATH}/board/kalray/longvalid_k1c
+input_file=${script_path}/uclibcng-testrunner.in
 # Generate a random testsuite file
 for i in $(seq 1 ${COUNT})
 do
@@ -17,5 +18,7 @@ do
 	shuf ${input_file} >> $tmp_file
 done
 
-cp $tmp_file ${TARGET_DIR}/usr/lib/uclibc-ng-test/test/uclibcng-testrunner.in
+output_path=${TARGET_DIR}/usr/lib/uclibc-ng-test/test
+cp $tmp_file ${output_path}/uclibcng-testrunner.in
+cp ${script_path}/uclibcng-testrunner.sh ${output_path}/uclibcng-testrunner.sh
 rm $tmp_file
