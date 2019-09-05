@@ -3,7 +3,9 @@ set -e
 
 echo "Generating random testsuite for uClibc"
 tmp_file=$(mktemp)
-if [ "$JOB_TYPE" == "DAILY" ]; then
+if [ "$JOB_TYPE" == "WEEKLY" ]; then
+	COUNT=50
+elif [ "$JOB_TYPE" == "DAILY" ]; then
 	COUNT=10
 else
 	COUNT=1
