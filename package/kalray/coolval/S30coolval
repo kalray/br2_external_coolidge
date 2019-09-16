@@ -42,5 +42,19 @@ mount -t hugetlbfs nodev /mnt/huge_64kb -o pagesize=64K
 modprobe k1c_dma_noc_test
 modprobe -r k1c_dma_noc_test
 
-# OK we are now ready to launch coolval
-/bin/coolval
+# OK we are now ready to launch coolval tests. Exit directly if a coolval test
+# returns a non-zero value.
+set -e
+
+run_coolval_tests() {
+	for testname in "$@"; do
+		echo ">>>>> $testname begin"
+		/bin/coolval -t "$testname"
+		echo ">>>>> $testname succeeded"
+		echo
+	done
+}
+
+run_coolval_tests 'dtouchl' 'fork' 'fpu' 'hugemap' 'jmp' \
+		  'jump_reg_saving' 'malloc' 'signal' 'syscall' \
+		  'ttyKS0' 'wchar'
