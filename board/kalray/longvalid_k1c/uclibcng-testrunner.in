@@ -37,7 +37,7 @@ PASS 0 fdopen fdopen misc   ./fdopen
 PASS 0 opendir-tst1 opendir-tst1 misc   ./opendir-tst1  
 PASS 0 popen popen misc   ./popen  
 PASS 0 seek seek misc   ./seek  
-FAIL 0 sem sem misc   ./sem  
+PASS 0 sem sem misc   ./sem  
 PASS 0 stdarg stdarg misc   ./stdarg  
 PASS 0 tst-inotify tst-inotify misc   ./tst-inotify  
 PASS 0 tst-mkostemps tst-mkostemps misc   ./tst-mkostemps  
@@ -200,4 +200,4 @@ PASS 0 tst-ifaddrs tst-ifaddrs inet   ./tst-ifaddrs
 PASS 0 tst-network tst-network inet   ./tst-network  
 PASS 0 tst-ntoa tst-ntoa inet   ./tst-ntoa  
 PASS 0 tst-res tst-res inet   ./tst-res  
-FAIL 0 tst-sock-nonblock tst-sock-nonblock inet   ./tst-sock-nonblock  
+PASS 0 tst-sock-nonblock tst-sock-nonblock inet   ./tst-sock-nonblock  
