@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-COOLVAL_SITE = $(TOPDIR)/../coolval
+COOLVAL_SITE = $(TOPDIR)/../linux_valid/coolval
 COOLVAL_SITE_METHOD = local
 COOLVAL_MODULE_SUBDIRS = src/module_tests src/k1c_dma_noc_test
 COOLVAL_MODULE_MAKE_OPTS = KCFLAGS=-I$(LINUX_DIR)/drivers/dma/k1
