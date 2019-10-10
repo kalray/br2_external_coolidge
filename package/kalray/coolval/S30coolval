@@ -57,4 +57,4 @@ run_coolval_tests() {
 
 run_coolval_tests 'dtouchl' 'fork' 'fpu' 'hugemap' 'jmp' \
 		  'jump_reg_saving' 'malloc' 'signal' 'syscall' \
-		  'ttyKS0' 'wchar'
+		  'ttyKS0' 'wchar' 'stackprotector'
