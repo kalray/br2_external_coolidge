@@ -32,3 +32,5 @@ run_coolval_tests 'dtouchl' 'fork' 'fpu' 'hugemap' 'jmp' \
 
 # Cleanup goes here
 "$COOLVALDIR"/clear_hugepages.sh
+
+halt -f
