@@ -9,3 +9,5 @@ LINUX_OVERRIDE_SRCDIR = $(TOPDIR)/../linux
 BAREBOX_OVERRIDE_SRCDIR = $(TOPDIR)/../barebox
 STRACE_OVERRIDE_SRCDIR = $(TOPDIR)/../strace
 LIBFFI_OVERRIDE_SRCDIR = $(TOPDIR)/../libffi
+# Override to add "-custom" suffix to k1c-firmware build directory
+K1C_FIRMWARE_OVERRIDE_SRCDIR = $(TOPDIR)/../workspace/devimage/firmware_pkg

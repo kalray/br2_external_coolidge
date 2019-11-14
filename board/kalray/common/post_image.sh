@@ -4,7 +4,7 @@ set -eu
 echo "Generating vmlinux_l2"
 
 vmlinux=${BINARIES_DIR}/vmlinux
-l2_cache_bin=${BUILD_DIR}/k1c-firmware/l2_cache_bin
+l2_cache_bin=${BUILD_DIR}/k1c-firmware-custom/l2_cache_bin
 section=".rm_firmware"
 
 rm_fw_sec_size=$(k1-linux-readelf -W --sections $vmlinux | grep $section | grep '[[:space:]]*\['  | sed -e 's/\[.*\]//g'|awk '{print $5}')
