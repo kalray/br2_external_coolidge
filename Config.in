@@ -1,2 +1,1 @@
-source "$BR2_EXTERNAL_K1C_PATH/package/kalray/coolval/Config.in"
 source "$BR2_EXTERNAL_K1C_PATH/package/kalray/k1c-firmware/Config.in"
