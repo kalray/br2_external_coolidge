@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MPPA_RPROC
+	bool "mppa-rproc"
+	depends on BR2_k1
+	help
+		MPPA rproc library

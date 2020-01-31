@@ -11,3 +11,4 @@ STRACE_OVERRIDE_SRCDIR = $(TOPDIR)/../strace
 # Override to add "-custom" suffix to k1c-firmware build directory
 K1C_FIRMWARE_OVERRIDE_SRCDIR = $(TOPDIR)/../k1c-linux-firmware
 LIBFFI_OVERRIDE_SRCDIR = $(TOPDIR)/../libffi
+MPPA_RPROC_OVERRIDE_SRCDIR = $(TOPDIR)/../mppa-rproc
