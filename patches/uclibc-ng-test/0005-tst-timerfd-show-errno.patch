@@ -1,0 +1,35 @@
+diff -ruN uclibc-ng-test-orig/test/time/tst-timerfd.c uclibc-ng-test/test/time/tst-timerfd.c
+--- uclibc-ng-test-orig/test/time/tst-timerfd.c	2018-01-20 21:46:19.000000000 +0100
++++ uclibc-ng-test/test/time/tst-timerfd.c	2020-02-12 13:32:00.471466827 +0100
+@@ -26,6 +26,7 @@
+ 	struct itimerspec s;
+ 	uint64_t val;
+ 	time_t start, now;
++	int retried = 0;
+ 
+ 	fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK);
+ 	if (fd < 0) {
+@@ -46,6 +47,7 @@
+ 		result = 1;
+ 	}
+ 
++retry:
+ 	/* let the timer expire, then check it again */
+ 	do {
+ 		now = time(NULL);
+@@ -53,7 +55,14 @@
+ 
+ 	ret = read(fd, &val, sizeof(val));
+ 	if (ret != sizeof(val)) {
+-		error(0, 0, "second read() returned %d", ret);
++		if (retried == 0 && errno == EAGAIN) {
++			error(0, 0, "second read() returned %d, retry", ret);
++			retried = 1;
++			start = time(NULL);
++			goto retry;
++		}
++
++		error(0, 0, "second read() returned %d with errno %d", ret, errno);
+ 		result = 1;
+ 	}
+ 
