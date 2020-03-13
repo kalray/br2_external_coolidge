@@ -3,3 +3,19 @@ config BR2_PACKAGE_K1C_FIRMWARE
 	depends on BR2_k1
 	help
 		Coolidge Linux firmware
+
+config BR2_K1C_FIRMWARE_CUSTOM_TARBALL
+	bool "Custom k1c firmware tarball"
+	depends on BR2_PACKAGE_K1C_FIRMWARE
+	help
+	  This option allows to specify a URL pointing to a k1c firmware
+	  source tarball. This URL can use any protocol recognized by
+	  Buildroot, like http://, ftp://, file:// or scp://.
+
+	  When pointing to a local tarball using file://, you may want
+	  to use a make variable like $(TOPDIR) to reference the root of
+	  the Buildroot tree.
+
+config BR2_K1C_FIRMWARE_CUSTOM_TARBALL_LOCATION
+	string "URL of custom k1c firmware tarball"
+	depends on BR2_K1C_FIRMWARE_CUSTOM_TARBALL
