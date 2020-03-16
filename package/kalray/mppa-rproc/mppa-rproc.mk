@@ -7,6 +7,7 @@
 MPPA_RPROC_SITE = $(TOPDIR)/../workspace/extra_clones/csw-linux/mppa_rproc
 MPPA_RPROC_SITE_METHOD = local
 ifeq ($(BR2_MPPA_RPROC_CUSTOM_TARBALL),y)
+undefine MPPA_RPROC_SITE_METHOD
 MPPA_RPROC_TARBALL = $(call qstrip,$(BR2_MPPA_RPROC_CUSTOM_TARBALL_LOCATION))
 MPPA_RPROC_SITE = $(patsubst %/,%,$(dir $(MPPA_RPROC_TARBALL)))
 MPPA_RPROC_SOURCE = $(notdir $(MPPA_RPROC_TARBALL))
