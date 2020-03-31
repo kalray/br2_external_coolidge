@@ -36,7 +36,7 @@ FAIL tst-mallocfork got 1 expected 0
 1  0x00000000000220c4 in __exit_handler (status=1) at libc/stdlib/_atexit.c:270
 2  0x000000000001afa0 in __GI_exit (rv=1) at libc/stdlib/_atexit.c:301
 3  0x0000000000010dcc in main (argc=1, argv=0x7ffffffd98) at ../test-skeleton.c:405
-4  0x000000000001cba8 in __uClibc_main (main=0x10988 <main>, argc=1, argv=0x7ffffffd98, app_init=0x100e8, app_fini=0x23918 <_fini>, rtld_fini=0x0 <k1c_start>, stack_end=0x7ffffffd90) at libc/misc/internals/__uClibc_main.c:512
+4  0x000000000001cba8 in __uClibc_main (main=0x10988 <main>, argc=1, argv=0x7ffffffd98, app_init=0x100e8, app_fini=0x23918 <_fini>, rtld_fini=0x0 <kvx_start>, stack_end=0x7ffffffd90) at libc/misc/internals/__uClibc_main.c:512
 5  0x00000000000eb8b8 in ?? ()
 
 Signed-off-by: Yann Sionneau <ysionneau@kalray.eu>

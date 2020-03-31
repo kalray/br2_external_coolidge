@@ -8,7 +8,7 @@ LINUX_HEADERS_OVERRIDE_SRCDIR = $(TOPDIR)/../linux
 LINUX_OVERRIDE_SRCDIR = $(TOPDIR)/../linux
 BAREBOX_OVERRIDE_SRCDIR = $(TOPDIR)/../barebox
 STRACE_OVERRIDE_SRCDIR = $(TOPDIR)/../strace
-# Override to add "-custom" suffix to k1c-firmware build directory
-K1C_FIRMWARE_OVERRIDE_SRCDIR = $(TOPDIR)/../k1c-linux-firmware
+# Override to add "-custom" suffix to kvx-firmware build directory
+KVX_FIRMWARE_OVERRIDE_SRCDIR = $(TOPDIR)/../kvx-linux-firmware
 LIBFFI_OVERRIDE_SRCDIR = $(TOPDIR)/../libffi
 MPPA_RPROC_OVERRIDE_SRCDIR = $(TOPDIR)/../mppa-rproc
