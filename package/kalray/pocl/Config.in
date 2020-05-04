@@ -1,6 +1,7 @@
 config BR2_PACKAGE_POCL
 	bool "pocl"
 	depends on BR2_kvx
+	select BR2_PACKAGE_POCL_FIRMWARE
 	help
 		POCL library
 
