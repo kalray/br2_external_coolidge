@@ -1,8 +1,15 @@
 config BR2_PACKAGE_POCL_FIRMWARE
-	bool "pocl_firmware"
+	bool "pocl firmwares"
 	depends on BR2_kvx
 	help
 		Coolidge POCL firmwares for OpenCL
+
+config BR2_PACKAGE_POCL_FIRMWARE_LIST
+	string "Firmware list to be copied in final image"
+	depends on BR2_PACKAGE_POCL_FIRMWARE
+	help
+		Space separated list of firmwares to be copied to the final
+		image. if empty, all firmwares will be copied.
 
 config BR2_POCL_FIRMWARE_CUSTOM_TARBALL
 	bool "Custom kvx firmware tarball"
