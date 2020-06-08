@@ -12,7 +12,6 @@ POCL_TARBALL = $(call qstrip,$(BR2_POCL_CUSTOM_TARBALL_LOCATION))
 POCL_SITE = $(patsubst %/,%,$(dir $(POCL_TARBALL)))
 POCL_SOURCE = $(notdir $(POCL_TARBALL))
 POCL_VERSION = custom
-POCL_STRIP_COMPONENTS = 2
 BR_NO_CHECK_HASH_FOR += $(POCL_SOURCE)
 endif
 POCL_DEPENDENCIES = mppa-offload mppa-rproc mesa3d-headers
