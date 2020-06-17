@@ -2,8 +2,12 @@ config BR2_PACKAGE_POCL
 	bool "pocl"
 	depends on BR2_kvx
 	select BR2_PACKAGE_MESA3D_HEADERS
+	select BR2_PACKAGE_HAS_LIBOPENCL
 	help
 		POCL library
+
+config BR2_PACKAGE_PROVIDES_LIBOPENCL
+	default "pocl" if BR2_PACKAGE_POCL
 
 config BR2_POCL_CUSTOM_TARBALL
 	bool "Custom pocl tarball"
