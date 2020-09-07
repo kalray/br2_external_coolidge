@@ -9,6 +9,11 @@ iface eth0 inet6 static
 	address ::ffff:c0a8:fe01
 	netmask 64
 
+auto usb0
+iface usb0 inet static
+	address 192.168.252.1
+	netmask 255.255.255.0
+
 auto enmppa0
 iface enmppa0 inet static
 	address 192.168.253.1
