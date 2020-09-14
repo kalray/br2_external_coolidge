@@ -1,4 +1,2 @@
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="kvx_eth", \
-        ATTR{phys_port_name}=="enmppa0", NAME="$attr{phys_port_name}"
-SUBSYSTEM=="net", ACTION=="add", DRIVERS=="kvx_eth", \
-        ATTR{phys_port_name}=="enmppa4", NAME="$attr{phys_port_name}"
+        ATTR{phys_port_name}=="enmppa[0-7]*", NAME="$attr{phys_port_name}"
