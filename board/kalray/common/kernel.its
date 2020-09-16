@@ -1,0 +1,28 @@
+/dts-v1/;
+
+/ {
+	description = "Kernel images";
+	#address-cells = <1>;
+
+	images {
+		kernel {
+			description = "Kernel";
+			data = /incbin/("KERNEL_IMAGE");
+			type = "kernel";
+			os = "linux";
+			arch = "kvx";
+			compression = "none";
+			hash@1 {
+				algo = "md5";
+			};
+		};
+	};
+
+	configurations {
+		default = "default_conf";
+		default_conf {
+			description = "Kernel image";
+			kernel = "kernel";
+		};
+	};
+};
