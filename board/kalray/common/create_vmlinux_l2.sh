@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-echo "Generating vmlinux_l2"
+echo "Generating vmlinux with L2$ firmware"
 
 vmlinux=${BINARIES_DIR}/vmlinux
 l2_cache_bin=${BUILD_DIR}/kvx-firmware-custom/l2_cache_bin
@@ -17,4 +17,4 @@ if [ "$rm_fw_sec_size" -lt "$rm_fw_sec_size" ]; then
 fi
 
 kvx-linux-objcopy --update-section $section=${l2_cache_bin} ${vmlinux} ${BINARIES_DIR}/vmlinux_l2
-
+mv ${BINARIES_DIR}/vmlinux_l2 ${vmlinux}

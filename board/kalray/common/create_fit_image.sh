@@ -5,7 +5,7 @@ BOARD_DIR="$(dirname $0)"
 MKIMAGE=$HOST_DIR/bin/mkimage
 STRIP=$HOST_DIR/bin/kvx-linux-strip
 ITS_FILE=$BOARD_DIR/kernel.its
-VMLINUX=$BINARIES_DIR/vmlinux_l2
+VMLINUX=$BINARIES_DIR/vmlinux
 TEMPKERNEL=
 TEMPFILE=
 
