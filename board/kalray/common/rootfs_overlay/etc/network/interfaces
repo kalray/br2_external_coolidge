@@ -10,9 +10,9 @@ iface eth0 inet6 static
 	netmask 64
 
 auto usb0
-iface usb0 inet static
-	address 192.168.252.1
-	netmask 255.255.255.0
+iface usb0 inet manual
+	up avahi-autoipd -D --force-bind usb0
+	down avahi-autoipd -k usb0
 
 auto enmppa0
 iface enmppa0 inet static
