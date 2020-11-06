@@ -1,6 +1,7 @@
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/kvx-firmware/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/qperf/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-rproc/Config.in"
+source "$BR2_EXTERNAL_KVX_PATH/package/kalray/offload-daemon/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-offload/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/pocl/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/pocl-firmware/Config.in"

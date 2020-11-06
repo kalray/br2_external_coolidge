@@ -1,6 +1,8 @@
 config BR2_PACKAGE_MPPA_OFFLOAD
 	bool "mppa-offload"
 	depends on BR2_kvx
+	select BR2_PACKAGE_OFFLOAD_DAEMON
+	select BR2_PACKAGE_MPPA_RPROC
 	help
 		MPPA offload library
 

@@ -14,7 +14,7 @@ MPPA_OFFLOAD_SOURCE = $(notdir $(MPPA_OFFLOAD_TARBALL))
 MPPA_OFFLOAD_VERSION = custom
 BR_NO_CHECK_HASH_FOR += $(MPPA_OFFLOAD_SOURCE)
 endif
-MPPA_OFFLOAD_DEPENDENCIES = mppa-rproc
+MPPA_OFFLOAD_DEPENDENCIES = offload-daemon
 MPPA_OFFLOAD_OPTS = TARGET=cluster SYSTEM=linux BUILD_TYPE=RelWithDebInfo
 MPPA_OFFLOAD_OPTS += KALRAY_TOOLCHAIN_DIR=$(BR2_EXTERNAL_KVX_PATH)/support/kalray/
 MPPA_OFFLOAD_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)
@@ -29,6 +29,7 @@ define MPPA_OFFLOAD_INSTALL_STAGING_CMDS
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/arch/linux/mppa_offload_arch.h $(STAGING_DIR)/usr/include/mppa_offload_arch.h
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_common.h $(STAGING_DIR)/usr/include/mppa_offload_common.h
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_host.h $(STAGING_DIR)/usr/include/mppa_offload_host.h
+	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_cmd.h $(STAGING_DIR)/usr/include/mppa_offload_cmd.h
 	$(INSTALL) -D -m 0755 $(@D)/libmppaoffload/output/lib/cluster/libmppa_offload_host.so $(STAGING_DIR)/usr/lib/libmppa_offload_host.so
 endef
 
