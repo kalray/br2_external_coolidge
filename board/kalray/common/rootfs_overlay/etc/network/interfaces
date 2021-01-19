@@ -11,7 +11,7 @@ iface eth0 inet6 static
 
 auto usb0
 iface usb0 inet manual
-	up avahi-autoipd -D --force-bind usb0
+	up (avahi-autoipd -w -D --force-bind usb0 && ip route del default dev usb0)&
 	down avahi-autoipd -k usb0
 
 auto enmppa0
