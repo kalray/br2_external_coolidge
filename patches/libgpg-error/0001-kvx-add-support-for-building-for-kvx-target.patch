@@ -1,0 +1,51 @@
+From d4936cc0eb307aaf08d286b2b5f7bfc30e0ab418 Mon Sep 17 00:00:00 2001
+From: Yann Sionneau <ysionneau@kalray.eu>
+Date: Tue, 5 Jan 2021 10:25:29 +0100
+Subject: [PATCH] kvx: add support for building for kvx target
+
+Summary: Add support for building for kvx target
+
+Test Plan: CI
+
+Differential Revision: https://phab.kalray.eu/D10505
+---
+ .../lock-obj-pub.kvx-unknown-linux-gnu.h      | 27 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 src/syscfg/lock-obj-pub.kvx-unknown-linux-gnu.h
+
+diff --git a/src/syscfg/lock-obj-pub.kvx-unknown-linux-gnu.h b/src/syscfg/lock-obj-pub.kvx-unknown-linux-gnu.h
+new file mode 100644
+index 0000000..872eed5
+--- /dev/null
++++ b/src/syscfg/lock-obj-pub.kvx-unknown-linux-gnu.h
+@@ -0,0 +1,27 @@
++## lock-obj-pub.kvx-unknown-linux-gnu.h
++## File created by gen-posix-lock-obj - DO NOT EDIT
++## To be included by mkheader into gpg-error.h
++
++typedef struct
++{
++  long _vers;
++  union {
++    volatile char _priv[48];
++    long _x_align;
++    long *_xp_align;
++  } u;
++} gpgrt_lock_t;
++
++#define GPGRT_LOCK_INITIALIZER {1,{{0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0}}}
++##
++## Local Variables:
++## mode: c
++## buffer-read-only: t
++## End:
++##
++
+-- 
+2.17.1
+
