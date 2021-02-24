@@ -1,0 +1,42 @@
+{
+	"tests": [
+		{
+			"name": "Check remote notifications",
+			"header": "Sends configs notification",
+			"checks": [
+				{ "format": "New notification: parser,ack not requested,Eth0.parser0.rule0: type 14 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser0.rule1: type 1 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser0.rule2: type 12 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser0.rule3: type 15 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser0.rule4: type 3 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser1.rule0: type 1 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser1.rule1: type 12 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser1.rule2: type 15 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser1.rule3: type 3 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser2.rule0: type 12 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser2.rule1: type 15 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser2.rule2: type 3 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser7.rule0: type 0 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser7.rule1: type 26 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser12.rule0: type 25 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth0.parser31.rule0: type 11 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: Tx config,ack not requested,Eth0: id 6, asn 5, header_enabled 1" },
+				{ "format": "New notification: Rx config,ack not requested,Eth0: ids 0x11, asn 15, split_trigger 128" },
+				{ "format": ".*Failed to send cluster3 notification" },
+				{ "format": "New notification: MTU,ack not requested,Eth0: 1500" },
+				{ "format": "New notification: Link status,ack not requested,Eth0: LINK DOWN" },
+				{ "format": "New notification: Link status,ack requested,Eth0: LINK UP" },
+				{ "format": "New notification: Eth availability,ack not requested,Eth0: available" },
+				{ "format": "New notification: parser,ack not requested,Eth1.parser0.rule0: type 14 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth1.parser0.rule1: type 1 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth1.parser0.rule2: type 12 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: parser,ack not requested,Eth1.parser0.rule3: type 15 add_metadata_index=1 check_header_checksum=1" },
+				{ "format": "New notification: parser,ack not requested,Eth1.parser0.rule4: type 3 add_metadata_index=0 check_header_checksum=0" },
+				{ "format": "New notification: Eth availability,ack not requested,Eth1: available" },
+				{ "format": "New notification: Eth config done,ack not requested," },
+				{ "format": "odp_notif test succeded on cluster" },
+				{ "format": "odp_notif test script succeded" }
+			]
+		}
+	]
+}

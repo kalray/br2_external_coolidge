@@ -1,0 +1,7 @@
+config BR2_PACKAGE_KVX_ODP_NOTIF
+	bool "KVX ODP notification module"
+	depends on BR2_LINUX_KERNEL
+	help
+	  Kernel module to send notifications to ODP.
+
+comment "KVX ODP notification module"
