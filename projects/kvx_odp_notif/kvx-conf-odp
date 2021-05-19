@@ -263,7 +263,6 @@ function config_tx_fifo() {
 	p=$(get_sys_net_path "$eid")/tx/${cid}
 
 	echo 0 > "$p/drop_en"
-	echo 1 > "$p/header_en"
 }
 
 function print_rx_mask() {
