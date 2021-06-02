@@ -1,0 +1,49 @@
+config BR2_PACKAGE_ODP
+	bool "KVX ODP"
+	help
+		Open Data Plane library and headers installed in stage
+
+config BR2_ODP_TESTSUITE
+	bool "KVX ODP testsuite"
+	default n
+	depends on BR2_PACKAGE_ODP
+	help
+		Install Open Data Plane testsuite in target
+
+config BR2_PACKAGE_KVX_VIRTIONET_MQ
+	bool "kvx virtionet multiqueue module"
+	depends on BR2_LINUX_KERNEL
+	depends on BR2_PACKAGE_ODP
+	help
+	  Kernel module to support kvx virtionet device.
+
+config BR2_PACKAGE_KVX_ODP_SHMEM
+	bool "KVX ODP shared memories module"
+	depends on BR2_LINUX_KERNEL
+	depends on BR2_PACKAGE_ODP
+	help
+	  Kernel module to manage ODP shared memories.
+
+
+config BR2_ODP_SYSCALL_SUPPORT
+	bool "KVX ODP SYSCALL SUPORT"
+	default n
+	depends on BR2_PACKAGE_ODP
+	help
+		Enable Open Data Plane syscall support
+
+config BR2_ODP_CUSTOM_TARBALL
+	bool "Custom ODP tarball"
+	depends on BR2_PACKAGE_ODP
+	help
+	  This option allows to specify a URL pointing to a kvx firmware
+	  source tarball. This URL can use any protocol recognized by
+	  Buildroot, like http://, ftp://, file:// or scp://.
+
+	  When pointing to a local tarball using file://, you may want
+	  to use a make variable like $(TOPDIR) to reference the root of
+	  the Buildroot tree.
+
+config BR2_ODP_CUSTOM_TARBALL_LOCATION
+	string "URL of custom ODP tarball"
+	depends on BR2_ODP_CUSTOM_TARBALL

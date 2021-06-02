@@ -1,7 +1,0 @@
-config KVX_ODP_NOTIF
-	tristate "KVX ODP notification driver"
-	depends on KVX
-	default m
-	help
-		Enable this driver to notify ODP of various information on
-		CoS clusters.

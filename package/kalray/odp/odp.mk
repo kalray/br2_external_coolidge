@@ -1,0 +1,72 @@
+################################################################################
+#
+# ODP shared memories module
+#
+################################################################################
+
+ODP_SITE         = $(TOPDIR)/../odp
+ODP_SITE_METHOD  = local
+ODP_INSTALL_STAGING = YES
+
+ifeq ($(BR2_ODP_CUSTOM_TARBALL),y)
+undefine ODP_SITE_METHOD
+ODP_TARBALL = $(call qstrip,$(BR2_ODP_CUSTOM_TARBALL_LOCATION))
+ODP_SITE = $(patsubst %/,%,$(dir $(ODP_TARBALL)))
+ODP_SOURCE = $(notdir $(ODP_TARBALL))
+ODP_VERSION = custom
+BR_NO_CHECK_HASH_FOR += $(ODP_SOURCE)
+endif
+
+ODP_OPTS  = KALRAY_TOOLCHAIN_DIR=$(BR2_KALRAY_TOOLCHAIN_DIR)
+ODP_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)
+ODP_OPTS += arch=$(BR2_MARCH)
+
+ODP_MODULE_SUBDIRS  = linux/kvx_odp_notif
+
+ifeq ($(BR2_PACKAGE_KVX_VIRTIONET_MQ),y)
+ODP_MODULE_SUBDIRS += linux/kvx_virtionet_mq
+# VIRTIO_NET_MQ needs VIRTIO_NET to be enabled in kernel.
+define ODP_LINUX_CONFIG_FIXUPS
+	$(call KCONFIG_ENABLE_OPT,CONFIG_VIRTIO_NET)
+endef
+define KVX_VIRTIONET_MQ_INSTALL_TARGET
+	$(INSTALL) -D -m 0755 $(@D)/linux/kvx_virtionet_mq/09-kvx-vnet.rules $(TARGET_DIR)/etc/udev/rules.d/09-kvx-vnet.rules
+endef
+endif
+
+ifeq ($(BR2_PACKAGE_KVX_ODP_SHMEM),y)
+ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
+endif
+
+ifneq ($(BR2_ODP_SYSCALL_SUPPORT),y)
+ODP_OPTS += IGNORE=libsyscall
+endif
+
+define ODP_BUILD_CMDS
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) DEBUG=1
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) build-linux-tests
+endef
+
+define  ODP_INSTALL_STAGING_CMDS
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install-internal-headers
+endef
+
+ifeq ($(BR2_ODP_TESTSUITE),y)
+define ODP_TESTSUITE_INSTALL_TARGET
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/ install-firmware-tests
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/dbg/ DEBUG=1 install-firmware-tests
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/test/scripts install-linux-scripts
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/test/bin install-linux-tests
+endef
+endif
+
+define  ODP_INSTALL_TARGET_CMDS
+	$(INSTALL) -D -m 0755 $(@D)/linux/kvx_odp_notif/kvx-conf-odp $(TARGET_DIR)/usr/bin/kvx-conf-odp
+	$(KVX_VIRTIONET_MQ_INSTALL_TARGET)
+	$(ODP_TESTSUITE_INSTALL_TARGET)
+endef
+
+$(eval $(kernel-module))
+$(eval $(generic-package))
