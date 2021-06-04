@@ -86,7 +86,7 @@ static int get_cid_ethid(struct kobject *kobj, int *cid, int *ethid) {
                 if (get_cid_ethid(kobj, &cid, &ethid))                  \
                         return -ENXIO;                                  \
                 ptr = (T *)&gnotif_sysfs.notif[cid][ethid].field;       \
-                count = sprintf(buf, fmt, *ptr);                        \
+                count = scnprintf(buf, PAGE_SIZE, fmt, *ptr);                        \
                 pr_debug("Read cluster[%d].eth[%d].%s: %s\n", cid,        \
                 	ethid, attr->attr.name, buf);                   \
                 return count;                                           \
@@ -110,6 +110,37 @@ static int get_cid_ethid(struct kobject *kobj, int *cid, int *ethid) {
         }                                                               \
         static struct kobj_attribute __nam##_attr = __ATTR_RW(__nam);
 
+#define DECLARE_STRING_ATTRIBUTE(__nam, field)                          \
+        static ssize_t __nam##_show(struct kobject *kobj,               \
+                        struct kobj_attribute *attr, char *buf) {       \
+                                                                        \
+                int cid, ethid, count;                                  \
+                char *ptr;                                              \
+                if (get_cid_ethid(kobj, &cid, &ethid))                  \
+                        return -ENXIO;                                  \
+                ptr = gnotif_sysfs.notif[cid][ethid].field;             \
+                count = scnprintf(buf, PAGE_SIZE, "%s", ptr);                        \
+                pr_debug("Read cluster[%d].eth[%d].%s: %s\n", cid,      \
+                	ethid, attr->attr.name, buf);                       \
+                return count;                                           \
+        }                                                               \
+        static ssize_t __nam##_store(struct kobject *kobj,              \
+                struct kobj_attribute *attr, const char *buf,           \
+                	size_t count) {                                     \
+                int cid, ethid;                                         \
+                if (get_cid_ethid(kobj, &cid, &ethid))                  \
+                        return -ENXIO;                                  \
+                snprintf(gnotif_sysfs.notif[cid][ethid].field,          \
+                		sizeof(gnotif_sysfs.notif[cid][ethid].field),   \
+                		"%.*s",                                         \
+                		(int)min(count, sizeof(gnotif_sysfs.notif[0][0].field) - 1), \
+                		buf);                                           \
+                pr_debug("Write cluster[%d].eth[%d].%s with %s\n", cid, \
+                	ethid, attr->attr.name, buf);                       \
+                return count;                                           \
+        }                                                               \
+        static struct kobj_attribute __nam##_attr = __ATTR_RW(__nam);
+
 #define DECLARE_INT_ATTRIBUTE(__nam, field, minval, maxval) \
         DECLARE_XXX_ATTRIBUTE(int, "%d", __nam, field, minval, maxval)
 #define DECLARE_LONG_ATTRIBUTE(__nam, field, minval, maxval) \
@@ -126,10 +157,7 @@ static int get_cid_ethid(struct kobject *kobj, int *cid, int *ethid) {
 DECLARE_UINT8_ATTRIBUTE(type, type, ENOTIF_PARSER_INFO, ENOTIF_LAST_ENUM)
 DECLARE_BOOL_ATTRIBUTE(ack_requested, ack_requested)
 DECLARE_UINT8_ATTRIBUTE(parser_id, parser_offload.parser_id, 0, KVX_ETH_PARSERS_COUNT-1)
-DECLARE_UINT8_ATTRIBUTE(parser_rule_id, parser_offload.rule_id, 0, KVX_ETH_PARSER_RULES_COUNT-1)
-DECLARE_UINT8_ATTRIBUTE(parser_rule_type, parser_offload.rule.type, 0, KVX_ETH_PARSER_RULE_TYPE_MAX)
-DECLARE_UINT8_ATTRIBUTE(parser_rule_add_metadata_index, parser_offload.rule.add_metadata_index, 0, 1)
-DECLARE_UINT8_ATTRIBUTE(parser_rule_check_header_checksum, parser_offload.rule.check_header_checksum, 0, 1)
+DECLARE_STRING_ATTRIBUTE(parser_desc, parser_offload.desc)
 
 DECLARE_UINT8_ATTRIBUTE(tx_fifo_id, tx_config.fifo_id, 0, MAX_TX_FIFO_ID)
 DECLARE_BOOL_ATTRIBUTE(tx_header_enabled, tx_config.header_enabled)
@@ -387,10 +415,7 @@ static int create_ethid_tree(int cid, int ethid) {
 
         CREATE_ETH_ENTRY(cid, ethid, type);
         CREATE_ETH_ENTRY(cid, ethid, parser_id);
-        CREATE_ETH_ENTRY(cid, ethid, parser_rule_id);
-        CREATE_ETH_ENTRY(cid, ethid, parser_rule_type);
-        CREATE_ETH_ENTRY(cid, ethid, parser_rule_add_metadata_index);
-        CREATE_ETH_ENTRY(cid, ethid, parser_rule_check_header_checksum);
+        CREATE_ETH_ENTRY(cid, ethid, parser_desc);
         CREATE_ETH_ENTRY(cid, ethid, ack_requested);
         CREATE_ETH_ENTRY(cid, ethid, tx_fifo_id);
         CREATE_ETH_ENTRY(cid, ethid, tx_header_enabled);
@@ -459,10 +484,7 @@ static void cleanup_sysfs(void) {
 
                         sysfs_remove_file(kobj_eth, &type_attr.attr);
                         sysfs_remove_file(kobj_eth, &parser_id_attr.attr);
-                        sysfs_remove_file(kobj_eth, &parser_rule_id_attr.attr);
-                        sysfs_remove_file(kobj_eth, &parser_rule_type_attr.attr);
-                        sysfs_remove_file(kobj_eth, &parser_rule_add_metadata_index_attr.attr);
-                        sysfs_remove_file(kobj_eth, &parser_rule_check_header_checksum_attr.attr);
+                        sysfs_remove_file(kobj_eth, &parser_desc_attr.attr);
                         sysfs_remove_file(kobj_eth, &ack_requested_attr.attr);
                         sysfs_remove_file(kobj_eth, &tx_fifo_id_attr.attr);
                         sysfs_remove_file(kobj_eth,

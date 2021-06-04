@@ -50,17 +50,36 @@ sleep 0.5
 new_test "Sends configs notification"
 
 echo 0 > type
-for parser_id in 0 1 2 7 12 31; do
-	echo "$parser_id" > parser_id
-	for rule_id in $(seq 0 "$(__hash $parser_id 8)" ); do
-		echo "$rule_id" > parser_rule_id
-		# reproducable random values
-		echo "$(__hash $((parser_id+rule_id)) 0x1f )" > parser_rule_type
-		echo "$(__hash $((parser_id+rule_id)) 2 )" > parser_rule_add_metadata_index
-		echo "$(__hash $((parser_id+rule_id)) 2 )" > parser_rule_check_header_checksum
-		echo 1 > send_notif
-	done
-done
+echo 0 > parser_id
+echo "1;01;1;0:0;00;0;0:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 1 > parser_id
+echo "1;01;1;0:1;0b;1;1:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 11 > parser_id
+echo "1;01;1;0:1;03;1;1:1;09;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 12 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 14 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;0:1;0b;1;1:" > parser_desc
+echo 1 > send_notif
+echo 16 > parser_id
+echo "1;01;1;0:0;00;0;0:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 17 > parser_id
+echo "1;01;1;0:1;0b;1;1:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 27 > parser_id
+echo "1;01;1;0:1;03;1;1:1;09;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 28 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 30 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;0:1;0b;1;1:" > parser_desc
+echo 1 > send_notif
 
 echo 2 > type
 echo 5 > tx_asn
@@ -98,17 +117,36 @@ echo 1 > send_notif
 cd ../eth1
 
 echo 0 > type
-for parser_id in 0 5; do
-	echo "$parser_id" > parser_id
-	for rule_id in $(seq 0 "$(__hash $parser_id 8)" ); do
-		echo "$rule_id" > parser_rule_id
-		# reproducable random values
-		echo "$(__hash $((parser_id+rule_id)) 0x1f )" > parser_rule_type
-		echo "$(__hash $((parser_id+rule_id)) 2 )" > parser_rule_add_metadata_index
-		echo "$(__hash $((parser_id+rule_id)) 2 )" > parser_rule_check_header_checksum
-		echo 1 > send_notif
-	done
-done
+echo 0 > parser_id
+echo "1;01;1;0:0;00;0;0:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 1 > parser_id
+echo "1;01;1;0:1;0b;1;1:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 11 > parser_id
+echo "1;01;1;0:1;03;1;1:1;09;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 12 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 14 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;0:1;0b;1;1:" > parser_desc
+echo 1 > send_notif
+echo 16 > parser_id
+echo "1;01;1;0:0;00;0;0:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 17 > parser_id
+echo "1;01;1;0:1;0b;1;1:0;00;0;0:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 27 > parser_id
+echo "1;01;1;0:1;03;1;1:1;09;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 28 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;1:0;00;0;0:" > parser_desc
+echo 1 > send_notif
+echo 30 > parser_id
+echo "1;01;1;0:1;03;1;1:1;08;1;0:1;0b;1;1:" > parser_desc
+echo 1 > send_notif
 
 echo 5 > type
 echo 1 > available

@@ -300,14 +300,11 @@ function config_cluster_eth() {
 
 	echo 0 >   "$p/type"
 	for parser_id in $(\ls -v1 "$sys_net_path/parser/"); do
-		echo "$parser_id" > "$p/parser_id"
-		for rule_id in $(\ls -v1 "$sys_net_path/parser/$parser_id/rule/"); do
-			echo "$rule_id" > "$p/parser_rule_id"
-			cat "$sys_net_path/parser/$parser_id/rule/$rule_id/type" > "$p/parser_rule_type"
-			cat "$sys_net_path/parser/$parser_id/rule/$rule_id/add_metadata_index" > "$p/parser_rule_add_metadata_index"
-			cat "$sys_net_path/parser/$parser_id/rule/$rule_id/check_header_checksum" > "$p/parser_rule_check_header_checksum"
+		if [[ $(cat "$sys_net_path/parser/$parser_id/enable") == 1 ]]; then
+			echo "$parser_id" > "$p/parser_id"
+			cat "$sys_net_path/parser/$parser_id/desc" > "$p/parser_desc"
 			echo 1 >   "$p/send_notif"
-		done
+		fi
 	done
 
 	# ETH AVAILABLE
