@@ -357,22 +357,10 @@ function valid_cluster() {
 
 function print_weights() {
 	local eid=$1
-	local weights=""
 	local p
 
 	p=$(get_sys_net_path "${eid}")
-	for i in $(seq 0 255); do
-		cid=$(cat "${p}/dispatch_table/${i}/cluster_id")
-		case $cid in
-			[1-4])
-				weights="$weights 1"
-				;;
-			*)
-				weights="$weights 0"
-				;;
-		esac
-	done
-	echo "$weights"
+	cat "${p}/dispatch_table_acc/weights"
 	exit
 }
 
@@ -380,9 +368,7 @@ function reset_dt() {
 	local eid=$1
 	local p
 	p=$(get_sys_net_path "${eid}")
-	for i in $(seq 0 255); do
-		echo 0 > "${p}/dispatch_table/${i}/cluster_id"
-	done
+	echo 1 > "${p}/dispatch_table_acc/reset"
 }
 
 function check_param_nb_val() {
