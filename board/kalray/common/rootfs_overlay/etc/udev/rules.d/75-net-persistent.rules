@@ -1,2 +1,2 @@
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="kvx_eth", \
-        ATTR{phys_port_name}=="enmppa[0-7]*", NAME="$attr{phys_port_name}"
+        ATTR{phys_port_name}=="enmppa[0-7]*", NAME="$attr{phys_port_name}", RUN+="/bin/config_netled.sh $attr{phys_port_name}"
