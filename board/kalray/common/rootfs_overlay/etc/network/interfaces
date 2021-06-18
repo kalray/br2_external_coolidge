@@ -24,8 +24,8 @@ iface enmppa0 inet6 static
 
 auto enmppa4
 iface enmppa4 inet static
-	address 192.168.253.5
+	address 192.168.244.1
 	netmask 255.255.255.0
 iface enmppa4 inet6 static
-	address 64:ff9b::c0a8:fd05
+	address 64:ff9b::c0a8:f401
 	netmask 64
