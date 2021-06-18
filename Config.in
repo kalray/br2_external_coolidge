@@ -1,3 +1,12 @@
+config BR2_KALRAY_TOOLCHAIN_DIR
+	string "path to the Kalray toolchain"
+	help
+		Some packages build binaries and libraries with ClusterOS target.
+		In general, they are based on Makefile.kalray.
+		Makefile.kalray relies on KALRAY_TOOLCHAIN_DIR to find everything
+		it needs in the toolchain. It does have have to be added in PATH.
+
+
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/kvx-firmware/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/qperf/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-rproc/Config.in"
