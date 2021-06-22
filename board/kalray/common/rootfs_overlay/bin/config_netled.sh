@@ -1,15 +1,15 @@
 #!/bin/bash
 
 ITF=$1
-TRIG_NETDEV=${2:-0}
 t=$(echo $ITF | tr -dc '0-9')
 DEV=$(($t / 4))
 
 pushd /sys/class/leds
 for d in $(ls); do
     if cat "$d/uevent" | egrep -q eth${DEV}-activity ; then
-        # Netdev trigger must be configured once only
-        if [ ${TRIG_NETDEV} == 0 ]; then
+        if [ $(</sys/class/net/$ITF/operstate) == "down" ]; then
+            echo none > $d/trigger
+            echo 0 > $d/brightness
             continue
         fi
         echo netdev > $d/trigger
