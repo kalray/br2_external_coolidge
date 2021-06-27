@@ -21,10 +21,16 @@ ODP_OPTS  = KALRAY_TOOLCHAIN_DIR=$(BR2_KALRAY_TOOLCHAIN_DIR)
 ODP_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)
 ODP_OPTS += arch=$(BR2_MARCH)
 
-ODP_MODULE_SUBDIRS  = linux/kvx_odp_notif
+ODP_HAS_MODULE := 0
+
+ifeq ($(BR2_PACKAGE_KVX_ODP_NOTIF),y)
+	ODP_MODULE_SUBDIRS += linux/kvx_odp_notif
+	ODP_HAS_MODULE := 1
+endif
 
 ifeq ($(BR2_PACKAGE_KVX_VIRTIONET_MQ),y)
-ODP_MODULE_SUBDIRS += linux/kvx_virtionet_mq
+	ODP_MODULE_SUBDIRS += linux/kvx_virtionet_mq
+	ODP_HAS_MODULE := 1
 # VIRTIO_NET_MQ needs VIRTIO_NET to be enabled in kernel.
 define ODP_LINUX_CONFIG_FIXUPS
 	$(call KCONFIG_ENABLE_OPT,CONFIG_VIRTIO_NET)
@@ -35,11 +41,12 @@ endef
 endif
 
 ifeq ($(BR2_PACKAGE_KVX_ODP_SHMEM),y)
-ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
+	ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
+	ODP_HAS_MODULE := 1
 endif
 
 ifneq ($(BR2_ODP_SYSCALL_SUPPORT),y)
-ODP_OPTS += IGNORE=libsyscall
+	ODP_OPTS += IGNORE=libsyscall
 endif
 
 define ODP_BUILD_CMDS
@@ -68,5 +75,7 @@ define  ODP_INSTALL_TARGET_CMDS
 	$(ODP_TESTSUITE_INSTALL_TARGET)
 endef
 
+ifeq ($(ODP_HAS_MODULE),1)
 $(eval $(kernel-module))
+endif
 $(eval $(generic-package))

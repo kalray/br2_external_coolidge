@@ -10,17 +10,24 @@ config BR2_ODP_TESTSUITE
 	help
 		Install Open Data Plane testsuite in target
 
+config BR2_PACKAGE_KVX_ODP_NOTIF
+	bool "KVX ODP notification module"
+	default y
+	depends on BR2_LINUX_KERNEL
+	help
+	  Kernel module to send notifications to ODP.
+
 config BR2_PACKAGE_KVX_VIRTIONET_MQ
 	bool "kvx virtionet multiqueue module"
+	default n
 	depends on BR2_LINUX_KERNEL
-	depends on BR2_PACKAGE_ODP
 	help
 	  Kernel module to support kvx virtionet device.
 
 config BR2_PACKAGE_KVX_ODP_SHMEM
 	bool "KVX ODP shared memories module"
+	default n
 	depends on BR2_LINUX_KERNEL
-	depends on BR2_PACKAGE_ODP
 	help
 	  Kernel module to manage ODP shared memories.
 
