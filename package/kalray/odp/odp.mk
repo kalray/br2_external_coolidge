@@ -40,6 +40,24 @@ define KVX_VIRTIONET_MQ_INSTALL_TARGET
 endef
 endif
 
+ifeq ($(BR2_ODP_LOAD_MONITOR),y)
+define ODP_LOAD_MONITOR_BUILD
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_load_monitor/
+endef
+define ODP_LOAD_MONITOR_INSTALL_TARGET
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_load_monitor/ DESTDIR=$(TARGET_DIR)/usr/bin/ install
+endef
+endif
+
+ifeq ($(BR2_ODP_PROFILER),y)
+define ODP_PROFILER_BUILD
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_profiler/
+endef
+define ODP_PROFILER_INSTALL_TARGET
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_profiler/ DESTDIR=$(TARGET_DIR)/usr/bin/ install
+endef
+endif
+
 ifeq ($(BR2_PACKAGE_KVX_ODP_SHMEM),y)
 	ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
 	ODP_HAS_MODULE := 1
@@ -53,6 +71,8 @@ define ODP_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) DEBUG=1
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) build-linux-tests
+	$(ODP_LOAD_MONITOR_BUILD)
+	$(ODP_PROFILER_BUILD)
 endef
 
 define  ODP_INSTALL_STAGING_CMDS
@@ -73,6 +93,8 @@ define  ODP_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/linux/kvx_odp_notif/kvx-conf-odp $(TARGET_DIR)/usr/bin/kvx-conf-odp
 	$(KVX_VIRTIONET_MQ_INSTALL_TARGET)
 	$(ODP_TESTSUITE_INSTALL_TARGET)
+	$(ODP_LOAD_MONITOR_INSTALL_TARGET)
+	$(ODP_PROFILER_INSTALL_TARGET)
 endef
 
 ifeq ($(ODP_HAS_MODULE),1)
