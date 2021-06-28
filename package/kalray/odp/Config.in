@@ -41,7 +41,7 @@ config BR2_ODP_SYSCALL_SUPPORT
 
 config BR2_ODP_LOAD_MONITOR
 	bool "Allows to dump the loads of the clusters running ODP from Linux userspace"
-	depends on BR2_PACKAGE_ODP
+	depends on BR2_PACKAGE_NCURSES
 	help
 	  Tool allowing to dump the loads of the clusters running ODP from Linux userspace.
 

@@ -41,6 +41,7 @@ endef
 endif
 
 ifeq ($(BR2_ODP_LOAD_MONITOR),y)
+ODP_DEPENDENCIES += ncurses
 define ODP_LOAD_MONITOR_BUILD
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_load_monitor/
 endef
