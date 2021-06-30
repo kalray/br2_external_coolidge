@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LIBBMCCOM
+	bool "libbmccom"
+	depends on BR2_kvx
+	help
+		BMC Communication library
