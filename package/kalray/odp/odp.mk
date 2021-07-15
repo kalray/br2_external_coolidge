@@ -92,6 +92,8 @@ endif
 
 define  ODP_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/linux/kvx_odp_notif/kvx-conf-odp $(TARGET_DIR)/usr/bin/kvx-conf-odp
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/ install-firmware-utils
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/scripts/ install-scripts-utils
 	$(KVX_VIRTIONET_MQ_INSTALL_TARGET)
 	$(ODP_TESTSUITE_INSTALL_TARGET)
 	$(ODP_LOAD_MONITOR_INSTALL_TARGET)
