@@ -7,11 +7,12 @@ vmlinux=${BINARIES_DIR}/vmlinux
 l2_cache_bin=${BUILD_DIR}/kvx-firmware-custom/l2_cache_bin
 section=".rm_firmware"
 
-rm_fw_sec_size=$(kvx-linux-readelf -W --sections $vmlinux | grep $section | grep '[[:space:]]*\['  | sed -e 's/\[.*\]//g'|awk '{print $5}')
+rm_fw_sec_size_in_hex=$(kvx-linux-readelf -W --sections $vmlinux | grep $section | grep '[[:space:]]*\['  | sed -e 's/\[.*\]//g'|awk '{print $5}')
+rm_fw_sec_size=$(printf "%d" 0x$rm_fw_sec_size_in_hex)
 
 l2_cache_size=$(stat --printf="%s" $l2_cache_bin)
 
-if [ "$rm_fw_sec_size" -lt "$rm_fw_sec_size" ]; then
+if [ "$rm_fw_sec_size" -lt "$l2_cache_size" ]; then
 	echo "L2 Firmware is too big for vmlinux"
 	exit 1
 fi
