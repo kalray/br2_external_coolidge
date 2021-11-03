@@ -50,6 +50,11 @@ config BR2_ODP_PROFILER
 	help
 	  Tool allowing to control the profiling of the cpus running ODP from Linux userspace.
 
+config BR2_ODP_LINK_MONITOR
+	bool "Allows to monitor the status of each ethernet link from Linux userspace"
+	help
+	  Tool allowing to monitor the status of each ethernet link from Linux userspace.
+
 config BR2_ODP_CUSTOM_TARBALL
 	bool "Custom ODP tarball"
 	depends on BR2_PACKAGE_ODP

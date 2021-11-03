@@ -59,6 +59,15 @@ define ODP_PROFILER_INSTALL_TARGET
 endef
 endif
 
+ifeq ($(BR2_ODP_LINK_MONITOR),y)
+define ODP_LINK_MONITOR_BUILD
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_link_monitor/
+endef
+define ODP_LINK_MONITOR_INSTALL_TARGET
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_link_monitor/ DESTDIR=$(TARGET_DIR)/usr/bin/ install
+endef
+endif
+
 ifeq ($(BR2_PACKAGE_KVX_ODP_SHMEM),y)
 	ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
 	ODP_HAS_MODULE := 1
@@ -74,6 +83,7 @@ define ODP_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) build-linux-tests
 	$(ODP_LOAD_MONITOR_BUILD)
 	$(ODP_PROFILER_BUILD)
+	$(ODP_LINK_MONITOR_BUILD)
 endef
 
 define  ODP_INSTALL_STAGING_CMDS
@@ -98,6 +108,7 @@ define  ODP_INSTALL_TARGET_CMDS
 	$(ODP_TESTSUITE_INSTALL_TARGET)
 	$(ODP_LOAD_MONITOR_INSTALL_TARGET)
 	$(ODP_PROFILER_INSTALL_TARGET)
+	$(ODP_LINK_MONITOR_INSTALL_TARGET)
 endef
 
 ifeq ($(ODP_HAS_MODULE),1)
