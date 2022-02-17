@@ -9,6 +9,7 @@ config BR2_KALRAY_TOOLCHAIN_DIR
 
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/kvx-firmware/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/qperf/Config.in"
+source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-dma/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-rproc/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/offload-daemon/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-offload/Config.in"
