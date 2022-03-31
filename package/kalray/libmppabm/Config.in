@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LIBMPPABM
+	bool "libmppabm"
+	depends on BR2_kvx
+	help
+		MPPA Board management library
