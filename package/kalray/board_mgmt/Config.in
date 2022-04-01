@@ -1,0 +1,7 @@
+config BR2_PACKAGE_BOARD_MGMT
+	bool "boardmgmt"
+	depends on BR2_kvx
+	depends on BR2_PACKAGE_LIBMPPABM
+	depends on BR2_PACKAGE_BM_RUBY
+	help
+		Board management applications for MPPA
