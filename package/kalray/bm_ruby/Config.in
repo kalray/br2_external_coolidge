@@ -1,0 +1,6 @@
+config BR2_PACKAGE_BM_RUBY
+	bool "bmruby"
+	depends on BR2_kvx
+	depends on BR2_PACKAGE_RUBY
+	help
+		Ruby bindings for MPPA Board management
