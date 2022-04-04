@@ -10,14 +10,21 @@ BM_RUBY_DEPENDENCIES = ruby libmppabm
 BM_RUBY_INSTALL_STAGING = YES
 
 BM_RUBY_CFLAGS_EXTRA = -fPIC -fstack-protector-strong
-BM_RUBY_INCLUDES = -I $(TARGET_DIR)/usr/include/ruby-$(RUBY_VERSION_EXT) \
-                   -I $(TARGET_DIR)/usr/include/ruby-$(RUBY_VERSION_EXT)/kvx-linux-uclibc \
-                   -I $(TOPDIR)/../workspace/extra_clones/csw-linux/board_mgmt/common/include
+BM_RUBY_INCLUDES = -I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/include \
+                   -I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/.ext/include/kvx-linux-uclibc \
+                   -I$(TOPDIR)/../workspace/extra_clones/csw-linux/board_mgmt/common/include
 BM_RUBY_LFLAGS_EXTRA = -fstack-protector \
                        -shared \
                        -rdynamic \
                        -Wl,-export-dynamic \
-                       -Wl,-Bsymbolic-functions
+                       -Wl,-Bsymbolic-functions \
+                       -lruby \
+                       -lmppabm \
+                       -lpthread \
+                       -ldl \
+                       -lcrypt \
+                       -lm
+
 BM_RUBY_RELATIVE_DIR = /usr/lib/ruby/$(RUBY_VERSION_EXT)
 BM_RUBY_STAGING_DIR = $(STAGING_DIR)/$(BM_RUBY_RELATIVE_DIR)
 BM_RUBY_TARGET_DIR = $(TARGET_DIR)/$(BM_RUBY_RELATIVE_DIR)

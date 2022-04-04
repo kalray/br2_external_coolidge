@@ -3,5 +3,7 @@ config BR2_PACKAGE_BOARD_MGMT
 	depends on BR2_kvx
 	depends on BR2_PACKAGE_LIBMPPABM
 	depends on BR2_PACKAGE_BM_RUBY
+	depends on BR2_PACKAGE_NCURSES
+	depends on BR2_PACKAGE_READLINE
 	help
 		Board management applications for MPPA
