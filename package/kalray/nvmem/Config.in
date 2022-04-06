@@ -1,0 +1,4 @@
+config BR2_PACKAGE_NVMEM
+	bool "nvmem"
+	help
+	  nvmem utility that can read and dump content from otp
