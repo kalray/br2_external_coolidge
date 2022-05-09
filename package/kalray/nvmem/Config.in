@@ -5,7 +5,8 @@ config BR2_PACKAGE_NVMEM
 
 config BR2_NVMEM_CUSTOM_TARBALL
 	bool "Custom NVMEM tarball"
-	depends on BR2_PACKAGE_ODP
+	default n
+	depends on BR2_PACKAGE_NVMEM
 	help
 	  This option allows to specify a URL pointing to a kvx firmware
 	  source tarball. This URL can use any protocol recognized by
