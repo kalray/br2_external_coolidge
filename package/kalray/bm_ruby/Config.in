@@ -1,6 +1,22 @@
 config BR2_PACKAGE_BM_RUBY
-	bool "bmruby"
+	bool "bm_ruby"
 	depends on BR2_kvx
 	depends on BR2_PACKAGE_RUBY
 	help
 		Ruby bindings for MPPA Board management
+
+config BR2_BM_RUBY_CUSTOM_TARBALL
+	bool "Custom Board Management Ruby tarball"
+	depends on BR2_PACKAGE_BM_RUBY
+	help
+	  This option allows to specify a URL pointing to a kvx firmware
+	  source tarball. This URL can use any protocol recognized by
+	  Buildroot, like http://, ftp://, file:// or scp://.
+
+	  When pointing to a local tarball using file://, you may want
+	  to use a make variable like $(TOPDIR) to reference the root of
+	  the Buildroot tree.
+
+config BR2_BM_RUBY_CUSTOM_TARBALL_LOCATION
+	string "URL of custom Board Management Ruby tarball"
+	depends on BR2_BM_RUBY_CUSTOM_TARBALL
