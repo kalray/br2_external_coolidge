@@ -20,8 +20,14 @@ endif
 
 BM_RUBY_CFLAGS_EXTRA = -fPIC -fstack-protector-strong
 BM_RUBY_INCLUDES = -I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/include \
-                   -I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/.ext/include/kvx-linux-uclibc \
                    -I$(BR2_KALRAY_TOOLCHAIN_DIR)/include
+
+ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
+BM_RUBY_INCLUDES +=-I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/.ext/include/kvx-linux-uclibc
+else ifeq ($(BR2_TOOLCHAIN_USES_MUSL),y)
+BM_RUBY_INCLUDES +=-I$(BUILD_DIR)/ruby-$(RUBY_VERSION)/.ext/include/kvx-linux-musl
+endif
+
 BM_RUBY_LFLAGS_EXTRA = -fstack-protector \
                        -shared \
                        -rdynamic \
