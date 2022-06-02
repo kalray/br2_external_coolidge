@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-BM_RUBY_SITE = $(TOPDIR)/../workspace/extra_clones/csw-linux/board_mgmt/utils/bm_ruby
+BM_RUBY_SITE = $(TOPDIR)/../workspace/extra_clones/csw-linux/board_mgmt
 BM_RUBY_SITE_METHOD = local
 BM_RUBY_DEPENDENCIES = ruby libmppabm
 BM_RUBY_INSTALL_STAGING = YES
@@ -41,24 +41,24 @@ BM_RUBY_TARGET_DIR = $(TARGET_DIR)/$(BM_RUBY_RELATIVE_DIR)
 define BM_RUBY_BUILD_CMDS
 	$(TARGET_CC) $(BM_RUBY_CFLAGS_EXTRA) \
 		     $(BM_RUBY_INCLUDES) \
-		     -o $(@D)/bm_ruby_api.o \
-		     -c $(@D)/src/mppabm/bm_ruby_api.c
+		     -o $(@D)/utils/bm_ruby/bm_ruby_api.o \
+		     -c $(@D)/utils/bm_ruby/src/mppabm/bm_ruby_api.c
 	$(TARGET_CC) $(BM_RUBY_LFLAGS_EXTRA) \
 		     -L $(TARGET_DIR)/usr/lib \
-		     -o $(@D)/mppabm.so \
-		     $(@D)/bm_ruby_api.o
+		     -o $(@D)/utils/bm_ruby/mppabm.so \
+		     $(@D)/utils/bm_ruby/bm_ruby_api.o
 endef
 
 define BM_RUBY_INSTALL_STAGING_CMDS
 	mkdir -p $(STAGING_DIR)/usr/lib/ruby/$(RUBY_VERSION_EXT)/mppabm
-	$(INSTALL) -D -m 0755 $(@D)/lib/mppabm.rb $(BM_RUBY_STAGING_DIR)/
-	$(INSTALL) -D -m 0755 $(@D)/mppabm.so $(BM_RUBY_STAGING_DIR)/mppabm
+	$(INSTALL) -D -m 0755 $(@D)/utils/bm_ruby/lib/mppabm.rb $(BM_RUBY_STAGING_DIR)/
+	$(INSTALL) -D -m 0755 $(@D)/utils/bm_ruby/mppabm.so $(BM_RUBY_STAGING_DIR)/mppabm
 endef
 
 define BM_RUBY_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/usr/lib/ruby/$(RUBY_VERSION_EXT)/mppabm
-	$(INSTALL) -D -m 0755 $(@D)/lib/mppabm.rb $(BM_RUBY_TARGET_DIR)/
-	$(INSTALL) -D -m 0755 $(@D)/mppabm.so $(BM_RUBY_TARGET_DIR)/mppabm
+	$(INSTALL) -D -m 0755 $(@D)/utils/bm_ruby/lib/mppabm.rb $(BM_RUBY_TARGET_DIR)/
+	$(INSTALL) -D -m 0755 $(@D)/utils/bm_ruby/mppabm.so $(BM_RUBY_TARGET_DIR)/mppabm
 endef
 
 $(eval $(generic-package))
