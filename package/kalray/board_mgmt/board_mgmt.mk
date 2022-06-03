@@ -38,6 +38,7 @@ endef
 define BOARD_MGMT_INSTALL_STAGING_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-diag $(STAGING_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-image $(STAGING_DIR)/usr/bin/
+	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-cfg-merge $(STAGING_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/output/bin/kvx-board-mgmt $(STAGING_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/output/bin/kvx-board-flash $(STAGING_DIR)/usr/bin/
 endef
@@ -45,6 +46,7 @@ endef
 define BOARD_MGMT_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-diag $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-image $(TARGET_DIR)/usr/bin/
+	$(INSTALL) -D -m 0755 $(@D)/utils/kvx-board-cfg-merge $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/output/bin/kvx-board-mgmt $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -D -m 0755 $(@D)/output/bin/kvx-board-flash $(TARGET_DIR)/usr/bin/
 endef
