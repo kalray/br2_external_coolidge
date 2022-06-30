@@ -6,8 +6,6 @@ config BR2_KALRAY_TOOLCHAIN_DIR
 		Makefile.kalray relies on KALRAY_TOOLCHAIN_DIR to find everything
 		it needs in the toolchain. It does have have to be added in PATH.
 
-
-source "$BR2_EXTERNAL_KVX_PATH/package/kalray/kvx-firmware/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/qperf/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-dma/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/mppa-rproc/Config.in"
@@ -24,3 +22,6 @@ source "$BR2_EXTERNAL_KVX_PATH/package/kalray/board_mgmt/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/nvmem/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/machine_headers/Config.in"
 source "$BR2_EXTERNAL_KVX_PATH/package/kalray/kalray-makefile/Config.in"
+source "$BR2_EXTERNAL_KVX_PATH/package/kalray/l2-firmware/Config.in"
+source "$BR2_EXTERNAL_KVX_PATH/package/kalray/dma-firmware/Config.in"
+source "$BR2_EXTERNAL_KVX_PATH/package/kalray/phy-eth-firmware/Config.in"
