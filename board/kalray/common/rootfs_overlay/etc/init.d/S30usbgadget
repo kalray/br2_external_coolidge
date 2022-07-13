@@ -5,7 +5,14 @@ umask 077
 CONFIGFS_HOME=/sys/kernel/config
 
 start() {
+	# grab the first UDC device found
+	udc="$(ls /sys/class/udc/ | head -n1)"
 	printf "Starting usb gadget: "
+	if [ -z "$udc" ]; then
+		echo "FAIL: no available controller"
+		exit 1
+	fi
+
 	modprobe libcomposite
 	modprobe usb_f_acm
 	modprobe usb_f_ecm
@@ -37,8 +44,8 @@ start() {
 	ln -fs functions/ecm.usb0 configs/c.1
 	ln -fs functions/acm.GS0 configs/c.1
 
-	# enable the usb gadget on the first UDC device found
-	ls /sys/class/udc/ | head -n1 > UDC
+	# enable the usb gadget
+	printf "$udc" > UDC
 
 	echo "OK"
 }
