@@ -4,8 +4,17 @@ umask 077
 
 CONFIGFS_HOME=/sys/kernel/config
 
+sys_echo() { echo "$@" | dd status=none; }
+
 start() {
+	# grab the first UDC device found
+	udc="$(ls /sys/class/udc/ | head -n1)"
 	printf "Starting usb gadget: "
+	if [ -z "$udc" ]; then
+		echo "FAIL: no available controller"
+		exit 1
+	fi
+
 	modprobe libcomposite
 	modprobe usb_f_acm
 	modprobe usb_f_ecm
@@ -13,39 +22,40 @@ start() {
 	mkdir -p $CONFIGFS_HOME/usb_gadget/mppalinux
 
 	cd $CONFIGFS_HOME/usb_gadget/mppalinux
-	echo "0x0200" > bcdUSB
-	echo "0x00"   > bDeviceClass
+	sys_echo "0x0200" > bcdUSB
+	sys_echo "0x00"   > bDeviceClass
 
-	echo "0x0525" > idVendor
-	echo "0xa4aa" > idProduct
+	sys_echo "0x0525" > idVendor
+	sys_echo "0xa4aa" > idProduct
 
 	mkdir -p strings/0x409
-	echo "Kalray" > strings/0x409/manufacturer
-	cat /proc/device-tree/model > strings/0x409/product
+	sys_echo "Kalray" > strings/0x409/manufacturer
+	product="$(cat /proc/device-tree/model)"
+	sys_echo "$product" > strings/0x409/product
 	serial="$(nvmem read kvx-nv-regbank0 board_id@10 | sed 's/\([^\x0]*\).*/\1/')"
-	echo "$serial" > strings/0x409/serialnumber
+	sys_echo "$serial" > strings/0x409/serialnumber
 
 	mkdir -p configs/c.1
 	# self-powered
-	echo "0xc0" > configs/c.1/bmAttributes
-	echo "0"    > configs/c.1/MaxPower
+	sys_echo "0xc0" > configs/c.1/bmAttributes
+	sys_echo "0"    > configs/c.1/MaxPower
 	mkdir -p configs/c.1/strings/0x409
-	echo "Linux-USB CDC Composite Gadget (Ethernet and ACM)" > configs/c.1/strings/0x409/configuration
+	sys_echo "Linux-USB CDC Composite Gadget (Ethernet and ACM)" > configs/c.1/strings/0x409/configuration
 
 	mkdir -p functions/ecm.usb0
 	mkdir -p functions/acm.GS0
 	ln -fs functions/ecm.usb0 configs/c.1
 	ln -fs functions/acm.GS0 configs/c.1
 
-	# enable the usb gadget on the first UDC device found
-	ls /sys/class/udc/ | head -n1 > UDC
+	# enable the usb gadget
+	sys_echo "$udc" > UDC
 
 	echo "OK"
 }
 
 stop() {
 	printf "Stopping usb gadget: "
-	echo "" > $CONFIGFS_HOME/usb_gadget/mppalinux/UDC
+	sys_echo "" > $CONFIGFS_HOME/usb_gadget/mppalinux/UDC
 	echo "OK"
 }
 
