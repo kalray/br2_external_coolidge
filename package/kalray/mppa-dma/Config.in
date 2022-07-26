@@ -1,6 +1,7 @@
 config BR2_PACKAGE_MPPA_DMA
 	bool "mppa-dma"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_MACHINE_HEADERS
 	help
 		MPPA dma library
 
