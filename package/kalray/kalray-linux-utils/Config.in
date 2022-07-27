@@ -1,6 +1,7 @@
 config BR2_PACKAGE_KALRAY_LINUX_UTILS
 	bool "kalray-linux-utils"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	select BR2_PACKAGE_DTC
 	help
 	  Kalray Linux utilitary tools. This contains various

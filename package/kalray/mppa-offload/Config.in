@@ -1,6 +1,7 @@
 config BR2_PACKAGE_MPPA_OFFLOAD
 	bool "mppa-offload"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	select BR2_PACKAGE_OFFLOAD_DAEMON
 	select BR2_PACKAGE_MPPA_RPROC
 	help

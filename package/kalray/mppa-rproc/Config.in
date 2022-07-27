@@ -1,6 +1,7 @@
 config BR2_PACKAGE_MPPA_RPROC
 	bool "mppa-rproc"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	help
 		MPPA rproc library
 

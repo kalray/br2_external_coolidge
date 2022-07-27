@@ -1,6 +1,7 @@
 config BR2_PACKAGE_OFFLOAD_DAEMON
 	bool "offload-daemon"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	select BR2_PACKAGE_MPPA_RPROC
 	select BR2_PACKAGE_LIBEVENT
 	select BR2_PACKAGE_LIBDAEMON
