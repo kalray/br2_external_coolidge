@@ -4,19 +4,12 @@
 #
 ################################################################################
 
-MPPA_RPROC_SITE = $(TOPDIR)/../workspace/extra_clones/csw-linux/mppa_rproc
-MPPA_RPROC_SITE_METHOD = local
-
-ifeq ($(BR2_MPPA_RPROC_CUSTOM_TARBALL),y)
-undefine MPPA_RPROC_SITE_METHOD
-MPPA_RPROC_TARBALL = $(call qstrip,$(BR2_MPPA_RPROC_CUSTOM_TARBALL_LOCATION))
-MPPA_RPROC_SITE = $(patsubst %/,%,$(dir $(MPPA_RPROC_TARBALL)))
+MPPA_RPROC_VERSION ?= custom
 MPPA_RPROC_SOURCE = $(notdir $(MPPA_RPROC_TARBALL))
-MPPA_RPROC_VERSION = custom
-BR_NO_CHECK_HASH_FOR += $(MPPA_RPROC_SOURCE)
-endif
-
+MPPA_RPROC_SITE = $(BR2_KALRAY_SOURCE_SITE)
+MPPA_RPROC_SITE_METHOD = local
 MPPA_RPROC_DEPENDENCIES = kalray-makefile
+
 MPPA_RPROC_OPTS = TARGET=cluster SYSTEM=linux arch=$(BR2_MARCH)
 MPPA_RPROC_OPTS += KALRAY_TOOLCHAIN_DIR=$(STAGING_DIR)/opt/kalray/accesscore
 MPPA_RPROC_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)

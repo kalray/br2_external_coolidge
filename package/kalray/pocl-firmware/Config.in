@@ -10,19 +10,3 @@ config BR2_PACKAGE_POCL_FIRMWARE_LIST
 	help
 		Space separated list of firmwares to be copied to the final
 		image. if empty, all firmwares will be copied.
-
-config BR2_POCL_FIRMWARE_CUSTOM_TARBALL
-	bool "Custom kvx firmware tarball"
-	depends on BR2_PACKAGE_POCL_FIRMWARE
-	help
-	  This option allows to specify a URL pointing to a pocl firmware
-	  source tarball. This URL can use any protocol recognized by
-	  Buildroot, like http://, ftp://, file:// or scp://.
-
-	  When pointing to a local tarball using file://, you may want
-	  to use a make variable like $(TOPDIR) to reference the root of
-	  the Buildroot tree.
-
-config BR2_POCL_FIRMWARE_CUSTOM_TARBALL_LOCATION
-	string "URL of custom kvx firmware tarball"
-	depends on BR2_POCL_FIRMWARE_CUSTOM_TARBALL

@@ -4,8 +4,10 @@
 #
 ################################################################################
 
-LIBBMCCOM_SITE = $(TOPDIR)/../libbmccom
-LIBBMCCOM_SITE_METHOD = local
+LIBBMCCOM_VERSION ?= custom
+LIBBMCCOM_SOURCE = libbmccom-$(LIBBMCCOM_VERSION).tar.gz
+LIBBMCCOM_SITE = $(BR2_KALRAY_SOURCE_SITE)
+LIBBMCCOM_SITE_METHOD = file
 LIBBMCCOM_INSTALL_STAGING = YES
 LIBBMCCOM_DEPENDENCIES = i2c-tools
 
