@@ -3,3 +3,19 @@ config BR2_PACKAGE_MACHINE_HEADERS
 	depends on BR2_kvx
 	help
 		Machine headers for MPPA platform devices.
+
+config BR2_MACHINE_HEADERS_CUSTOM_TARBALL
+	bool "Custom Machine Headers tarball"
+	depends on BR2_PACKAGE_MACHINE_HEADERS
+	help
+	  This option allows to specify a URL pointing to a kvx firmware
+	  source tarball. This URL can use any protocol recognized by
+	  Buildroot, like http://, ftp://, file:// or scp://.
+
+	  When pointing to a local tarball using file://, you may want
+	  to use a make variable like $(TOPDIR) to reference the root of
+	  the Buildroot tree.
+
+config BR2_MACHINE_HEADERS_CUSTOM_TARBALL_LOCATION
+	string "URL of custom Machine Headers tarball"
+	depends on BR2_MACHINE_HEADERS_CUSTOM_TARBALL

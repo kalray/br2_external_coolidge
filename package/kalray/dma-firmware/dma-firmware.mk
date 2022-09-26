@@ -4,12 +4,10 @@
 #
 ################################################################################
 
-DMA_FIRMWARE_VERSION ?= custom
-DMA_FIRMWARE_SOURCE = dma-firmware-$(DMA_FIRMWARE_VERSION).tar.gz
-DMA_FIRMWARE_SITE = $(BR2_KALRAY_SOURCE_SITE)
-DMA_FIRMWARE_SITE_METHOD = file
+ifeq ($(BR2_DMA_FIRMWARE_COMPILE_FROM_SOURCE),y)
 
-ifeq ($(BR2_PACKAGE_DMA_FIRMWARE_COMPILE_FROM_SOURCE),y)
+DMA_FIRMWARE_SITE = $(TOPDIR)/../dma_firmware
+DMA_FIRMWARE_SITE_METHOD = local
 
 define DMA_FIRMWARE_BUILD_CMDS
 	PATH=$(PATH):$(TOPDIR)/../workspace/kEnv/kvxtools/opt/kalray/accesscore/bin \
@@ -27,6 +25,12 @@ define DMA_FIRMWARE_INSTALL_TARGET_CMDS
 endef
 
 else
+
+DMA_FIRMWARE_TARBALL = $(call qstrip,$(BR2_DMA_FIRMWARE_CUSTOM_TARBALL_LOCATION))
+DMA_FIRMWARE_SITE = $(patsubst %/,%,$(dir $(DMA_FIRMWARE_TARBALL)))
+DMA_FIRMWARE_SOURCE = $(notdir $(DMA_FIRMWARE_TARBALL))
+DMA_FIRMWARE_VERSION = custom
+BR_NO_CHECK_HASH_FOR += $(DMA_FIRMWARE_SOURCE)
 
 define DMA_FIRMWARE_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/lib/firmware/

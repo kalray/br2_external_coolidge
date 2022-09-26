@@ -4,13 +4,11 @@
 #
 ################################################################################
 
-L2_FIRMWARE_VERSION ?= custom
-L2_FIRMWARE_SOURCE = l2-firmware-$(L2_FIRMWARE_VERSION).tar.gz
-L2_FIRMWARE_SITE = $(BR2_KALRAY_SOURCE_SITE)
+ifeq ($(BR2_L2_FIRMWARE_COMPILE_FROM_SOURCE),y)
+
+L2_FIRMWARE_SITE = $(TOPDIR)/../l2_firmware
 L2_FIRMWARE_SITE_METHOD = local
-
-ifeq ($(BR2_PACKAGE_L2_FIRMWARE_COMPILE_FROM_SOURCE),y)
-
+L2_FIRMWARE_VERSION = custom
 ACCESSCORE_PATH=$(TOPDIR)/../workspace/kEnv/kvxtools/opt/kalray/accesscore
 
 define L2_FIRMWARE_BUILD_CMDS
@@ -36,6 +34,14 @@ define L2_FIRMWARE_INSTALL_TARGET_CMDS
 	#       when the new build structure is in place.
 	cp -a $(@D)/bin/l2_cache_bin $(BASE_DIR)/../../devimage/l2-firmware/bin/
 endef
+
+else
+
+L2_FIRMWARE_TARBALL = $(call qstrip,$(BR2_L2_FIRMWARE_CUSTOM_TARBALL_LOCATION))
+L2_FIRMWARE_SITE = $(patsubst %/,%,$(dir $(L2_FIRMWARE_TARBALL)))
+L2_FIRMWARE_SOURCE = $(notdir $(L2_FIRMWARE_TARBALL))
+L2_FIRMWARE_VERSION = custom
+BR_NO_CHECK_HASH_FOR += $(L2_FIRMWARE_SOURCE)
 
 endif
 
