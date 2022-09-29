@@ -4,19 +4,10 @@
 #
 ################################################################################
 
-BOARD_MGMT_SITE = $(TOPDIR)/../workspace/extra_clones/csw-linux/board_mgmt
-BOARD_MGMT_SITE_METHOD = local
+BOARD_MGMT_SOURCE = board_mgmt-$(BOARD_MGMT_CUSTOM_VERSION).tar.gz
+BOARD_MGMT_SITE = $(BR2_KALRAY_PACKAGES_SITE)
 BOARD_MGMT_DEPENDENCIES = bm_ruby libmppabm readline ncurses
 BOARD_MGMT_INSTALL_STAGING = YES
-
-ifeq ($(BR2_BOARD_MGMT_CUSTOM_TARBALL),y)
-undefine BOARD_MGMT_SITE_METHOD
-BOARD_MGMT_TARBALL = $(call qstrip,$(BR2_BOARD_MGMT_CUSTOM_TARBALL_LOCATION))
-BOARD_MGMT_SITE = $(patsubst %/,%,$(dir $(BOARD_MGMT_TARBALL)))
-BOARD_MGMT_SOURCE = $(notdir $(BOARD_MGMT_TARBALL))
-BOARD_MGMT_VERSION = custom
-BR_NO_CHECK_HASH_FOR += $(BOARD_MGMT_SOURCE)
-endif
 
 # Overwrite linker flags of the Makefile to pass ncurses instead of termcap
 # because in Buildroot all the libtermcap functions are implemented by

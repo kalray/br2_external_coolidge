@@ -4,21 +4,12 @@
 #
 ################################################################################
 
-MPPA_DMA_WORKSPACE_PATH = $(TOPDIR)/../workspace
-MPPA_DMA_SITE = $(MPPA_DMA_WORKSPACE_PATH)/extra_clones/csw-linux/mppa_dma/libs/mppa
-MPPA_DMA_MACHINE_HEADERS_PATH = $(STAGING_DIR)/usr/include/machine
-MPPA_DMA_SITE_METHOD = local
-
-ifeq ($(BR2_MPPA_DMA_CUSTOM_TARBALL),y)
-undefine MPPA_DMA_SITE_METHOD
-MPPA_DMA_TARBALL = $(call qstrip,$(BR2_MPPA_DMA_CUSTOM_TARBALL_LOCATION))
-MPPA_DMA_SITE = $(patsubst %/,%,$(dir $(MPPA_DMA_TARBALL)))
-MPPA_DMA_SOURCE = $(notdir $(MPPA_DMA_TARBALL))
-MPPA_DMA_VERSION = custom
-BR_NO_CHECK_HASH_FOR += $(MPPA_DMA_SOURCE)
-endif
-
+MPPA_DMA_SOURCE = mppa-dma-$(MPPA_DMA_CUSTOM_VERSION).tar.gz
+MPPA_DMA_SITE = $(BR2_KALRAY_PACKAGES_SITE)
 MPPA_DMA_DEPENDENCIES = kalray-makefile
+
+MPPA_DMA_MACHINE_HEADERS_PATH = $(STAGING_DIR)/usr/include/machine
+
 MPPA_DMA_OPTS = TARGET=cluster SYSTEM=linux arch=$(BR2_MARCH)
 MPPA_DMA_OPTS += KALRAY_TOOLCHAIN_DIR=$(STAGING_DIR)/opt/kalray/accesscore
 MPPA_DMA_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)

@@ -4,19 +4,9 @@
 #
 ################################################################################
 
-ODP_SITE         = $(TOPDIR)/../odp
-ODP_SITE_METHOD  = local
+ODP_SOURCE = odp-$(ODP_CUSTOM_VERSION).tar.gz
+ODP_SITE = $(BR2_KALRAY_PACKAGES_SITE)
 ODP_INSTALL_STAGING = YES
-
-ifeq ($(BR2_ODP_CUSTOM_TARBALL),y)
-undefine ODP_SITE_METHOD
-ODP_TARBALL = $(call qstrip,$(BR2_ODP_CUSTOM_TARBALL_LOCATION))
-ODP_SITE = $(patsubst %/,%,$(dir $(ODP_TARBALL)))
-ODP_SOURCE = $(notdir $(ODP_TARBALL))
-ODP_VERSION = custom
-BR_NO_CHECK_HASH_FOR += $(ODP_SOURCE)
-endif
-
 ODP_DEPENDENCIES += mppa-rproc kalray-makefile
 
 ODP_OPTS  = KALRAY_TOOLCHAIN_DIR=$(BR2_KALRAY_TOOLCHAIN_DIR)
