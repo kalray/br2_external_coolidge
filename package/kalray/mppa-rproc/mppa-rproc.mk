@@ -4,9 +4,11 @@
 #
 ################################################################################
 
-MPPA_RPROC_SOURCE = mppa-rproc-$(MPPA_RPROC_CUSTOM_VERSION).tar.gz
-MPPA_RPROC_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+MPPA_RPROC_VERSION = $(call qstrip,$(BR2_MPPA_RPROC_VERSION))
+MPPA_RPROC_SITE = $(call kalray,$(1),$(MPPA_RPROC_VERSION))
 MPPA_RPROC_DEPENDENCIES = kalray-makefile
+
+BR_NO_CHECK_HASH_FOR += $(MPPA_RPROC_SOURCE)
 
 MPPA_RPROC_OPTS = TARGET=cluster SYSTEM=linux arch=$(BR2_MARCH)
 MPPA_RPROC_OPTS += KALRAY_TOOLCHAIN_DIR=$(STAGING_DIR)/opt/kalray/accesscore

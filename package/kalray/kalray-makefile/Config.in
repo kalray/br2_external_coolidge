@@ -3,3 +3,6 @@ config BR2_PACKAGE_KALRAY_MAKEFILE
 	depends on BR2_kvx
 	help
 	  The Kalray Makefile needed by various other Kalray packages.
+
+config BR2_KALRAY_MAKEFILE_VERSION
+	string

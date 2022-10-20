@@ -4,8 +4,10 @@
 #
 ################################################################################
 
-POCL_FIRMWARE_SOURCE = pocl-firmware-$(POCL_FIRMWARE_CUSTOM_VERSION).tar.gz
-POCL_FIRMWARE_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+POCL_FIRMWARE_VERSION = $(call qstrip,$(BR2_POCL_FIRMWARE_VERSION))
+POCL_FIRMWARE_SITE = $(call kalray,$(1),$(POCL_FIRMWARE_VERSION))
+
+BR_NO_CHECK_HASH_FOR += $(POCL_FIRMWARE_SOURCE)
 
 define POCL_FIRMWARE_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/lib/firmware/kalray/opencl/

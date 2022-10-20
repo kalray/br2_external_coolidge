@@ -10,3 +10,6 @@ config BR2_PACKAGE_POCL_FIRMWARE_LIST
 	help
 		Space separated list of firmwares to be copied to the final
 		image. if empty, all firmwares will be copied.
+
+config BR2_POCL_FIRMWARE_VERSION
+	string

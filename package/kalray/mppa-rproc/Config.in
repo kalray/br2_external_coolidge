@@ -4,3 +4,6 @@ config BR2_PACKAGE_MPPA_RPROC
 	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	help
 		MPPA rproc library
+
+config BR2_MPPA_RPROC_VERSION
+	string

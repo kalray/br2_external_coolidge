@@ -6,3 +6,6 @@ config BR2_PACKAGE_MPPA_OFFLOAD
 	select BR2_PACKAGE_MPPA_RPROC
 	help
 		MPPA offload library
+
+config BR2_MPPA_OFFLOAD_VERSION
+	string

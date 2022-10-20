@@ -7,3 +7,6 @@ config BR2_PACKAGE_BOARD_MGMT
 	depends on BR2_PACKAGE_READLINE
 	help
 		Board management tools for MPPA
+
+config BR2_BOARD_MGMT_VERSION
+	string

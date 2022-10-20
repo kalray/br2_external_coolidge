@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-BM_RUBY_SOURCE = bm_ruby-$(BM_RUBY_CUSTOM_VERSION).tar.gz
-BM_RUBY_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+BM_RUBY_VERSION = $(call qstrip,$(BR2_BOARD_MGMT_VERSION))
+BM_RUBY_SITE = $(call kalray,board-mgmt,$(BM_RUBY_VERSION))
+BM_RUBY_SOURCE = board_mgmt-$(BM_RUBY_VERSION).tar.gz
 BM_RUBY_INSTALL_STAGING = YES
 BM_RUBY_DEPENDENCIES = ruby libmppabm
 

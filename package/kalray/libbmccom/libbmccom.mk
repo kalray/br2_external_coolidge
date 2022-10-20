@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-LIBBMCCOM_SOURCE = libbmccom-$(LIBBMCCOM_CUSTOM_VERSION).tar.gz
-LIBBMCCOM_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+LIBBMCCOM_VERSION = $(call qstrip,$(BR2_LIBBMCCOM_VERSION))
+LIBBMCCOM_SITE = $(call kalray,$(1),$(LIBBMCCOM_VERSION))
 LIBBMCCOM_INSTALL_STAGING = YES
 LIBBMCCOM_DEPENDENCIES = i2c-tools
+
+BR_NO_CHECK_HASH_FOR += $(LIBBMCCOM_SOURCE)
 
 define LIBBMCCOM_BUILD_CMDS
 	$(MAKE) -C $(@D) CC="$(TARGET_CC)" LD="$(TARGET_LD)" all

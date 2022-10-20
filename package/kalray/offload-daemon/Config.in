@@ -8,3 +8,6 @@ config BR2_PACKAGE_OFFLOAD_DAEMON
 	select BR2_PACKAGE_JSON_C
 	help
 		Offload daemon for mppa-offload
+
+config BR2_OFFLOAD_DAEMON_VERSION
+	string

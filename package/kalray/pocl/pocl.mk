@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-POCL_SOURCE = pocl-$(POCL_CUSTOM_VERSION).tar.gz
-POCL_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+POCL_VERSION = $(call qstrip,$(BR2_POCL_VERSION))
+POCL_SITE = $(call kalray,$(1),$(POCL_VERSION))
 POCL_INSTALL_STAGING = YES
 POCL_DEPENDENCIES = mppa-offload mppa-rproc mesa3d-headers
+
+BR_NO_CHECK_HASH_FOR += $(POCL_SOURCE)
 
 POCL_BUILD_OPTIMIZE = -O0 -g3
 ifneq (y,$(filter $(BR2_OPTIMIZE_G)$(BR2_OPTIMIZE_0),y))

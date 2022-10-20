@@ -5,3 +5,6 @@ config BR2_PACKAGE_MPPA_DMA
 	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	help
 		MPPA dma library
+
+config BR2_MPPA_DMA_VERSION
+	string

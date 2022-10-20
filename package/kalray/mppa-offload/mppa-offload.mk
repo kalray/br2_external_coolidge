@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-MPPA_OFFLOAD_SOURCE = mppa-offload-$(MPPA_OFFLOAD_CUSTOM_VERSION).tar.gz
-MPPA_OFFLOAD_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+MPPA_OFFLOAD_VERSION = $(call qstrip,$(BR2_MPPA_OFFLOAD_VERSION))
+MPPA_OFFLOAD_SITE = $(call kalray,$(1),$(MPPA_OFFLOAD_VERSION))
 MPPA_OFFLOAD_INSTALL_STAGING = YES
 MPPA_OFFLOAD_DEPENDENCIES = offload-daemon kalray-makefile
+
+BR_NO_CHECK_HASH_FOR += $(MPPA_OFFLOAD_SOURCE)
 
 MPPA_OFFLOAD_OPTS = TARGET=cluster SYSTEM=linux arch=$(BR2_MARCH)
 MPPA_OFFLOAD_OPTS += KALRAY_TOOLCHAIN_DIR=$(STAGING_DIR)/opt/kalray/accesscore

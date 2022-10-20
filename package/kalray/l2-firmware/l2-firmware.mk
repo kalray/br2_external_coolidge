@@ -4,9 +4,10 @@
 #
 ################################################################################
 
-L2_FIRMWARE_VERSION = custom
-L2_FIRMWARE_SOURCE = l2-firmware-$(L2_FIRMWARE_CUSTOM_VERSION).tar.gz
-L2_FIRMWARE_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+L2_FIRMWARE_VERSION = $(call qstrip,$(BR2_L2_FIRMWARE_VERSION))
+L2_FIRMWARE_SITE = $(call kalray,$(1),$(L2_FIRMWARE_VERSION))
+
+BR_NO_CHECK_HASH_FOR += $(L2_FIRMWARE_SOURCE)
 
 ifeq ($(BR2_L2_FIRMWARE_COMPILE_FROM_SOURCE),y)
 

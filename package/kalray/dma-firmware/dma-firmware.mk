@@ -4,8 +4,10 @@
 #
 ################################################################################
 
-DMA_FIRMWARE_SOURCE = dma-firmware-$(DMA_FIRMWARE_CUSTOM_VERSION).tar.gz
-DMA_FIRMWARE_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+DMA_FIRMWARE_VERSION = $(call qstrip,$(BR2_DMA_FIRMWARE_VERSION))
+DMA_FIRMWARE_SITE = $(call kalray,$(1),$(DMA_FIRMWARE_VERSION))
+
+BR_NO_CHECK_HASH_FOR += $(DMA_FIRMWARE_SOURCE)
 
 ifeq ($(BR2_DMA_FIRMWARE_COMPILE_FROM_SOURCE),y)
 

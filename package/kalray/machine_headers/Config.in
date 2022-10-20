@@ -3,3 +3,6 @@ config BR2_PACKAGE_MACHINE_HEADERS
 	depends on BR2_kvx
 	help
 		Machine headers for MPPA platform devices.
+
+config BR2_MACHINE_HEADERS_VERSION
+	string

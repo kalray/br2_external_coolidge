@@ -6,3 +6,6 @@ config BR2_PACKAGE_KALRAY_LINUX_UTILS
 	help
 	  Kalray Linux utilitary tools. This contains various
 	  scripts and binaries for kalray platforms.
+
+config BR2_KALRAY_LINUX_UTILS_VERSION
+	string

@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-LIBMPPABM_SOURCE = libmppabm-$(LIBMPPABM_CUSTOM_VERSION).tar.gz
-LIBMPPABM_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+LIBMPPABM_VERSION = $(call qstrip,$(BR2_BOARD_MGMT_VERSION))
+LIBMPPABM_SITE = $(call kalray,board_mgmt,$(LIBMPPABM_VERSION))
+LIBMPPABM_SOURCE = board_mgmt-$(LIBMPPABM_VERSION).tar.gz
 LIBMPPABM_INSTALL_STAGING = YES
 LIBMPPABM_DEPENDENCIES = udev
 

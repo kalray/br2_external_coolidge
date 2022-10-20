@@ -10,3 +10,6 @@ config BR2_DMA_FIRMWARE_COMPILE_FROM_SOURCE
 	depends on BR2_PACKAGE_DMA_FIRMWARE
 	help
 	  This option allows to compile the DMA firmware from source.
+
+config BR2_DMA_FIRMWARE_VERSION
+	string

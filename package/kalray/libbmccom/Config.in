@@ -3,3 +3,6 @@ config BR2_PACKAGE_LIBBMCCOM
 	depends on BR2_kvx
 	help
 		BMC Communication library
+
+config BR2_LIBBMCCOM_VERSION
+	string

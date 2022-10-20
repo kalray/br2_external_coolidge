@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-ODP_SOURCE = odp-$(ODP_CUSTOM_VERSION).tar.gz
-ODP_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+ODP_VERSION = $(call qstrip,$(BR2_ODP_VERSION))
+ODP_SITE = $(call kalray,$(1),$(ODP_VERSION))
 ODP_INSTALL_STAGING = YES
 ODP_DEPENDENCIES += mppa-rproc kalray-makefile
+
+BR_NO_CHECK_HASH_FOR += $(ODP_SOURCE)
 
 ODP_OPTS  = KALRAY_TOOLCHAIN_DIR=$(BR2_KALRAY_TOOLCHAIN_DIR)
 ODP_OPTS += LINUX_TOOLCHAIN_PREFIX=$(TARGET_CROSS)

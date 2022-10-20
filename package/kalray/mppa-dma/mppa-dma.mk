@@ -4,9 +4,11 @@
 #
 ################################################################################
 
-MPPA_DMA_SOURCE = mppa-dma-$(MPPA_DMA_CUSTOM_VERSION).tar.gz
-MPPA_DMA_SITE = $(BR2_KALRAY_PACKAGES_SITE)
-MPPA_DMA_DEPENDENCIES = kalray-makefile machine_headers
+MPPA_DMA_VERSION = $(call qstrip,$(BR2_MPPA_DMA_VERSION))
+MPPA_DMA_SITE = $(call kalray,$(1),$(MPPA_DMA_VERSION))
+MPPA_DMA_DEPENDENCIES = kalray-makefile
+
+BR_NO_CHECK_HASH_FOR += $(MPPA_DMA_SOURCE)
 
 MPPA_DMA_MACHINE_HEADERS_PATH = $(STAGING_DIR)/usr/include/machine/devices
 

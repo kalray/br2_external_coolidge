@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-BOARD_MGMT_SOURCE = board_mgmt-$(BOARD_MGMT_CUSTOM_VERSION).tar.gz
-BOARD_MGMT_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+BOARD_MGMT_VERSION = $(call qstrip,$(BR2_BOARD_MGMT_VERSION))
+BOARD_MGMT_SITE = $(call kalray,$(1),$(BOARD_MGMT_VERSION))
 BOARD_MGMT_DEPENDENCIES = bm_ruby libmppabm readline ncurses
 BOARD_MGMT_INSTALL_STAGING = YES
+
+BR_NO_CHECK_HASH_FOR += $(BOARD_MGMT_SOURCE)
 
 # Overwrite linker flags of the Makefile to pass ncurses instead of termcap
 # because in Buildroot all the libtermcap functions are implemented by

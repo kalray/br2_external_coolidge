@@ -4,7 +4,7 @@ set -eu
 echo "Generating vmlinux with L2$ firmware"
 
 vmlinux=${BINARIES_DIR}/vmlinux
-l2_cache_bin=${BUILD_DIR}/l2-firmware-custom/bin/l2_cache_bin
+l2_cache_bin=$(ls ${BUILD_DIR}/l2-firmware-*/bin/l2_cache_bin)
 section=".rm_firmware"
 
 rm_fw_sec_size_in_hex=$(kvx-linux-readelf -W --sections $vmlinux | grep $section | grep '[[:space:]]*\['  | sed -e 's/\[.*\]//g'|awk '{print $5}')

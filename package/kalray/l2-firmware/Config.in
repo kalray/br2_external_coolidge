@@ -10,3 +10,6 @@ config BR2_L2_FIRMWARE_COMPILE_FROM_SOURCE
 	depends on BR2_PACKAGE_L2_FIRMWARE
 	help
 	  This option allows to compile the L2 firmware from source.
+
+config BR2_L2_FIRMWARE_VERSION
+	string

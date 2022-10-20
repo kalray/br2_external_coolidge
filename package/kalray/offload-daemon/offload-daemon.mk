@@ -4,10 +4,12 @@
 #
 ################################################################################
 
-OFFLOAD_DAEMON_SOURCE = offload-daemon-$(OFFLOAD_DAEMON_CUSTOM_VERSION).tar.gz
-OFFLOAD_DAEMON_SITE = $(BR2_KALRAY_PACKAGES_SITE)
+OFFLOAD_DAEMON_VERSION = $(call qstrip,$(BR2_OFFLOAD_DAEMON_VERSION))
+OFFLOAD_DAEMON_SITE = $(call kalray,$(1),$(OFFLOAD_DAEMON_VERSION))
 OFFLOAD_DAEMON_INSTALL_STAGING = YES
 OFFLOAD_DAEMON_DEPENDENCIES = mppa-rproc libevent libdaemon json-c kalray-makefile
+
+BR_NO_CHECK_HASH_FOR += $(OFFLOAD_DAEMON_SOURCE)
 
 OFFLOAD_DAEMON_OPTS = TARGET=cluster arch=$(BR2_MARCH)
 OFFLOAD_DAEMON_OPTS += KALRAY_TOOLCHAIN_DIR=$(STAGING_DIR)/opt/kalray/accesscore
