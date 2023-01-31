@@ -5,6 +5,12 @@ config BR2_PACKAGE_ODP
 	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	help
 		Open Data Plane library and headers installed in stage
+config BR2_ODP_FPGA
+	bool "KVX ODP FPGA flavour"
+	default n
+	depends on BR2_PACKAGE_ODP
+	help
+		configuration for FPGA setup
 
 config BR2_ODP_TESTSUITE
 	bool "KVX ODP testsuite"
