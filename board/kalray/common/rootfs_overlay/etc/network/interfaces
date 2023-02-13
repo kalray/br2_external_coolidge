@@ -9,6 +9,11 @@ iface mppae1000 inet6 static
 	address ::ffff:c0a8:fe01
 	netmask 64
 
+auto virtionet
+iface virtionet inet static
+	address 192.168.252.1
+	netmask 255.255.255.0
+
 auto usb0
 iface usb0 inet manual
 	up (avahi-autoipd -w -D --force-bind usb0 && ip route del default dev usb0)&
