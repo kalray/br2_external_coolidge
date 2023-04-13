@@ -1,6 +1,7 @@
 config BR2_PACKAGE_ODP
 	bool "KVX ODP"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_MPPA_HELPER_LIBS
 	depends on BR2_PACKAGE_MPPA_RPROC
 	depends on BR2_PACKAGE_KALRAY_MAKEFILE
 	help

@@ -7,7 +7,7 @@
 ODP_VERSION = $(call qstrip,$(BR2_ODP_VERSION))
 ODP_SITE = $(call kalray,$(1),$(ODP_VERSION))
 ODP_INSTALL_STAGING = YES
-ODP_DEPENDENCIES += mppa-rproc kalray-makefile
+ODP_DEPENDENCIES += mppa-helper-libs mppa-rproc kalray-makefile
 
 BR_NO_CHECK_HASH_FOR += $(ODP_SOURCE)
 
@@ -17,6 +17,10 @@ ODP_OPTS += arch=$(BR2_MARCH)
 ifeq ($(BR2_ODP_FPGA),y)
 	ODP_OPTS += FPGA=1
 endif
+
+ODP_COS_OPTS = $(ODP_OPTS)
+ODP_COS_OPTS += CFLAGS=-I$(STAGING_DIR)/cluster/include
+ODP_COS_OPTS += lflags=-L$(STAGING_DIR)/cluster/lib
 
 ODP_HAS_MODULE := 0
 
@@ -75,23 +79,23 @@ ifneq ($(BR2_ODP_SYSCALL_SUPPORT),y)
 endif
 
 define ODP_BUILD_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) DEBUG=1
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) build-linux-tests
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D)
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) DEBUG=1
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) build-linux-tests
 	$(ODP_LOAD_MONITOR_BUILD)
 	$(ODP_PROFILER_BUILD)
 	$(ODP_LINK_MONITOR_BUILD)
 endef
 
 define  ODP_INSTALL_STAGING_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install-internal-headers
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) ODP_INSTALL_DIR=$(STAGING_DIR)/cluster/ install-internal-headers
 endef
 
 ifeq ($(BR2_ODP_TESTSUITE),y)
 define ODP_TESTSUITE_INSTALL_TARGET
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/ install-firmware-tests
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/dbg/ DEBUG=1 install-firmware-tests
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/ install-firmware-tests
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/test/dbg/ DEBUG=1 install-firmware-tests
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/test/scripts install-linux-scripts
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/test/bin install-linux-tests
 endef
@@ -99,7 +103,7 @@ endif
 
 define  ODP_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/linux/kvx_odp_notif/kvx-conf-odp $(TARGET_DIR)/usr/bin/kvx-conf-odp
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/ install-firmware-utils
+	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/lib/firmware/odp/ install-firmware-utils
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/scripts/ install-scripts-utils
 	$(KVX_VIRTIONET_MQ_INSTALL_TARGET)
 	$(ODP_TESTSUITE_INSTALL_TARGET)
