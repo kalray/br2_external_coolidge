@@ -28,6 +28,7 @@ define MPPA_OFFLOAD_INSTALL_STAGING_CMDS
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_common.h $(STAGING_DIR)/usr/include/mppa_offload_common.h
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_host.h $(STAGING_DIR)/usr/include/mppa_offload_host.h
 	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_cmd.h $(STAGING_DIR)/usr/include/mppa_offload_cmd.h
+	$(INSTALL) -D -m 0644 $(@D)/libmppaoffload/include/mppa_offload_mmio_desc.h $(STAGING_DIR)/usr/include/mppa_offload_mmio_desc.h
 	$(INSTALL) -D -m 0755 $(@D)/libmppaoffload/output/lib/cluster/libmppa_offload_host.so $(STAGING_DIR)/usr/lib/libmppa_offload_host.so
 endef
 
