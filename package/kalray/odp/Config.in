@@ -41,10 +41,5 @@ config BR2_ODP_SYSCALL_SUPPORT
 	help
 		Enable Open Data Plane syscall support
 
-config BR2_ODP_LINK_MONITOR
-	bool "Allows to monitor the status of each ethernet link from Linux userspace"
-	help
-	  Tool allowing to monitor the status of each ethernet link from Linux userspace.
-
 config BR2_ODP_VERSION
 	string

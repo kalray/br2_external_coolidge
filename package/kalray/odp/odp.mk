@@ -41,15 +41,6 @@ define KVX_VIRTIONET_MQ_INSTALL_TARGET
 endef
 endif
 
-ifeq ($(BR2_ODP_LINK_MONITOR),y)
-define ODP_LINK_MONITOR_BUILD
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_link_monitor/
-endef
-define ODP_LINK_MONITOR_INSTALL_TARGET
-	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D)/linux/odp_link_monitor/ DESTDIR=$(TARGET_DIR)/usr/bin/ install
-endef
-endif
-
 ifneq ($(BR2_ODP_SYSCALL_SUPPORT),y)
 	ODP_OPTS += IGNORE=libsyscall
 endif
@@ -58,7 +49,6 @@ define ODP_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D)
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) DEBUG=1
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_COS_OPTS) -C $(@D) build-linux-tests
-	$(ODP_LINK_MONITOR_BUILD)
 endef
 
 define  ODP_INSTALL_STAGING_CMDS
@@ -81,7 +71,6 @@ define  ODP_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(ODP_OPTS) -C $(@D) ODP_INSTALL_DIR=$(TARGET_DIR)/usr/share/odp/scripts/ install-scripts-utils
 	$(KVX_VIRTIONET_MQ_INSTALL_TARGET)
 	$(ODP_TESTSUITE_INSTALL_TARGET)
-	$(ODP_LINK_MONITOR_INSTALL_TARGET)
 endef
 
 ifeq ($(ODP_HAS_MODULE),1)
