@@ -58,7 +58,7 @@ define MPPA_HELPER_LIBS_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/dma_memcpy 
 	$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/libperfs 
 	$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/shmem
-	#$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/profiler 
+	$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/profiler 
 	#$(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/load_mon 
 	$(MPPA_LOAD_MONITOR_BUILD)
 	$(MPPA_PROFILER_BUILD)
@@ -69,7 +69,7 @@ define MPPA_HELPER_LIBS_INSTALL_STAGING_CMDS
 	 $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/dma_memcpy install
 	 $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/libperfs install
 	 $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/shmem install
-	# $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/profiler install
+	 $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/profiler install
 	# $(TARGET_MAKE_ENV) $(MAKE) $(MPPA_HELPER_LIBS_COS_OPTS) -C $(@D)/cos/load_mon install
 endef
 
