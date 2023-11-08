@@ -41,12 +41,6 @@ config BR2_ODP_SYSCALL_SUPPORT
 	help
 		Enable Open Data Plane syscall support
 
-config BR2_ODP_LOAD_MONITOR
-	bool "Allows to dump the loads of the clusters running ODP from Linux userspace"
-	depends on BR2_PACKAGE_NCURSES
-	help
-	  Tool allowing to dump the loads of the clusters running ODP from Linux userspace.
-
 config BR2_ODP_LINK_MONITOR
 	bool "Allows to monitor the status of each ethernet link from Linux userspace"
 	help
