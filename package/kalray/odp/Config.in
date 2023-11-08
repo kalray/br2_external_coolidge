@@ -34,14 +34,6 @@ config BR2_PACKAGE_KVX_VIRTIONET_MQ
 	help
 	  Kernel module to support kvx virtionet device.
 
-config BR2_PACKAGE_KVX_ODP_SHMEM
-	bool "KVX ODP shared memories module"
-	default n
-	depends on BR2_LINUX_KERNEL
-	help
-	  Kernel module to manage ODP shared memories.
-
-
 config BR2_ODP_SYSCALL_SUPPORT
 	bool "KVX ODP SYSCALL SUPORT"
 	default n

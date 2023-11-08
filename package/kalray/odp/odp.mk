@@ -60,11 +60,6 @@ define ODP_LINK_MONITOR_INSTALL_TARGET
 endef
 endif
 
-ifeq ($(BR2_PACKAGE_KVX_ODP_SHMEM),y)
-	ODP_MODULE_SUBDIRS += linux/kvx_odp_shmem
-	ODP_HAS_MODULE := 1
-endif
-
 ifneq ($(BR2_ODP_SYSCALL_SUPPORT),y)
 	ODP_OPTS += IGNORE=libsyscall
 endif
