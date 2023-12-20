@@ -5,11 +5,5 @@ config BR2_PACKAGE_PHY_ETH_FIRMWARE
 	help
 		Coolidge Linux phy eth firmware
 
-config BR2_PHY_ETH_FIRMWARE_COMPILE_FROM_SOURCE
-	bool "Compile Phy/Eth firmware from source"
-	depends on BR2_PACKAGE_PHY_ETH_FIRMWARE
-	help
-	  This option allows to compile the Phy/Eth firmware from source.
-
 config BR2_PHY_ETH_FIRMWARE_VERSION
 	string
