@@ -32,7 +32,7 @@ start() {
 	sys_echo "Kalray" > strings/0x409/manufacturer
 	product="$(cat /proc/device-tree/model)"
 	sys_echo "$product" > strings/0x409/product
-	serial="$(nvmem read kvx-nv-regbank0 board_id@10 | sed 's/\([^\x0]*\).*/\1/')"
+	serial="$(nvmem read kvx-nv-regbank0 board_id@10 | tr -d '\x0')"
 	sys_echo "$serial" > strings/0x409/serialnumber
 
 	mkdir -p configs/c.1
