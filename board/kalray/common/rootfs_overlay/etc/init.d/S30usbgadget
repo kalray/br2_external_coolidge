@@ -30,8 +30,16 @@ start() {
 
 	mkdir -p strings/0x409
 	sys_echo "Kalray" > strings/0x409/manufacturer
-	product="$(cat /proc/device-tree/model)"
-	sys_echo "$product" > strings/0x409/product
+	model="$(cat /proc/device-tree/model | tr '\0' '\n')"
+	product="$(echo $model | sed 's/kalray,//')"
+	mppa_serial="$(cat /sys/devices/soc0/serial_number | tr '\0' '\n')"
+	if [ ! -f /proc/device-tree/mppa_id ]; then
+		id="0"
+	else
+		id_hex=$(xxd -p /proc/device-tree/mppa_id)
+		id="$(echo $((0x${id_hex})))"
+	fi
+	sys_echo "MPPA${id}_${product} ($mppa_serial)" > strings/0x409/product
 	serial="$(nvmem read kvx-nv-regbank0 board_id@10 | tr -d '\x0')"
 	sys_echo "$serial" > strings/0x409/serialnumber
 
