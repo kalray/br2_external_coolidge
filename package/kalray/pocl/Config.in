@@ -1,8 +1,10 @@
 config BR2_PACKAGE_POCL
 	bool "pocl"
 	depends on BR2_kvx
+	depends on BR2_PACKAGE_MPPA_OFFLOAD
 	select BR2_PACKAGE_MESA3D_HEADERS
 	select BR2_PACKAGE_HAS_LIBOPENCL
+	select BR2_PACKAGE_MPPA_RPROC
 	help
 		POCL library
 
